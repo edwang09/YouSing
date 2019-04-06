@@ -1,0 +1,19 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/app/node_modules
+/app
+# testing
+/coverage
+
+# production
+/app/build
+
+/ffmpegwin
+/sox
+/app/package-lock.json
+package-lock.json
+/config/keys_dev.js
+/.vscode
+karaoke/*.mp3

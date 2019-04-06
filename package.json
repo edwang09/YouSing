@@ -1,0 +1,27 @@
+{
+  "name": "yousing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon server",
+    "git": "git add . && git commit -m \"update\" && git push origin master",
+    "client": "npm run start --prefix app",
+    "dev": "concurrently \"npm run server\" \"npm run client \""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "request": "^2.87.0",
+    "concurrently": "^3.5.1",
+    "express": "^4.16.3",
+    "fs": "0.0.1-security",
+    "mongoose": "^5.4.11",
+    "sox-stream": "^2.0.3",
+    "uuid": "^3.3.2",
+    "ws": "^6.2.1",
+    "youtube-mp3-downloader": "^0.5.3"
+  },
+  "proxy": "http://localhost:8080"
+}
