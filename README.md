@@ -1,4 +1,4 @@
-#YouSing App
+# YouSing App
 This is a ongoing project to create a web application called YouSing and Deploy it on Heroku
 
 ## App home page
