@@ -15,4 +15,4 @@
 package-lock.json
 /config/keys_dev.js
 /.vscode
-karaoke/*.mp3
+#karaoke/*.mp3
