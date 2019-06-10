@@ -29,6 +29,7 @@
     "ws": "^6.2.1",
     "ytdl-core": "^0.29.2"
   },
+  
   "nodemonConfig": {
     "ignore": [
       "karaoke/*"
