@@ -27,7 +27,6 @@
     "ws": "^6.2.1",
     "ytdl-core": "^0.29.2"
   },
-  "proxy": "http://localhost:8080",
   "nodemonConfig": {
     "ignore": [
       "karaoke/*"
