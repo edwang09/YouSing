@@ -160,7 +160,8 @@ router.get("/audio/:url", (req, res) => {
             effects: 'oops'
         })
         fs.createReadStream(path)
-        .pipe( transform ).on("error",e=>{
+        // .pipe( transform )
+        .on("error",e=>{
             console.log(e)
         })
         .pipe(res);
