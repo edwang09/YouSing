@@ -1,7 +1,9 @@
 import { combineReducers } from "redux";
 import authReducer from './authReducer';
+import modalReducer from './modalReducer';
 import karaokeReducer from './karaokeReducer'
 export default combineReducers({
-    authReducer,
-    karaokeReducer
+    auth : authReducer,
+    karaoke : karaokeReducer,
+    modal : modalReducer
 });

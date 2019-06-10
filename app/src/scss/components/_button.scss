@@ -1,0 +1,57 @@
+@mixin button {
+    color: white;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    height: 2rem;
+    font-size: 75%;
+    font-weight: bold;
+    border: 0;
+    cursor: pointer;
+    background-color: $mid-grey; /* this is a green */
+    display: block;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    &:hover{
+        background-color: lighten($mid-grey,10%);
+    }
+}
+button{
+    @include button;
+    &.success {
+        @include button;
+        background-color: rgb(28, 184, 65); /* this is a green */
+        &:hover{
+            transform: scale(1.03);
+            background-color: lighten(rgb(28, 184, 65),10%);
+        }
+    }
+
+    &.error {
+        @include button;
+        background-color: rgb(202, 60, 60); /* this is a maroon */
+        &:hover{
+            transform: scale(1.03);
+            background-color: lighten(rgb(202, 60, 60),10%);
+        }
+    }
+
+    &.warning {
+        @include button;
+        background-color: rgb(223, 117, 20); /* this is an orange */
+        &:hover{
+            transform: scale(1.03);
+            background-color: lighten(rgb(223, 117, 20),10%);
+        }
+    }
+
+    &.secondary {
+        @include button;
+        background-color: rgb(66, 184, 221); /* this is a light blue */
+        &:hover{
+            transform: scale(1.03);
+            background-color: lighten(rgb(66, 184, 221),10%);
+        }
+    }
+}
+
+        

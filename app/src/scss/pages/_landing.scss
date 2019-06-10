@@ -1,0 +1,168 @@
+section.intro{
+  background: linear-gradient(
+      rgba(#eee , 0), 
+      rgba(#eee, 0)
+    ),url('../assets/sing2.jpg') no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 80vh;
+    .catch-container{
+      margin: 4rem auto;
+      color: $light-grey;
+      font-weight: bolder;
+      max-width: 20rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      button{
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+        border-radius: 1.25rem;
+        height: 2.5rem;
+      }
+    }
+}
+section.about{
+  background: linear-gradient(
+      rgba(#8e8e8e , .91), 
+      rgba(#8e8e8e , .91)
+    ),url('../assets/sound.jpg') no-repeat;
+    background-position: center;
+    background-size: cover;
+    .catch{
+      padding:2rem 2rem;
+      margin: 0 auto;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      button{
+        margin-top: 2rem;
+        background-color: #D92578;
+      }
+    }
+    .picture{
+      display: none;
+    }
+}
+section.playonanyscreen{
+  background: linear-gradient(
+      rgba(#D9AF5A , .66), 
+      rgba(#D9AF5A , .66)
+    ),url('../assets/tv2.jpg') no-repeat;
+    background-position: center;
+    background-size: cover;
+    .catch{
+      padding:2rem 2rem;
+      margin: 0 auto;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      button{
+        margin-top: 1rem;
+      }
+    }
+}
+section.yourphoneisremote{
+  
+  background: linear-gradient(
+    rgba(#7BE185 , .66), 
+    rgba(#7BE185 , .66)
+  ),url('../assets/phone.jpg') no-repeat;
+  background-position: center;
+  background-size: cover;
+    .catch{
+      padding:2rem 2rem;
+      margin: 0 auto;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      button{
+        margin-top: 1rem;
+      }
+    }
+}
+
+@include tablet-landscape{
+  section.intro{
+      height: 70vh;
+        .catch{
+          max-width: 1200px;
+          margin: 0 auto;
+          .catch-container{
+            margin: 4rem;
+            max-width: 20rem;
+            align-items: flex-start;
+          }
+        }
+  }
+  section.about{
+    display: flex;
+    background: none;
+      .catch{
+        color:$light-grey;
+        flex-basis: 45%;
+        padding: 5rem;
+      }
+      .picture{
+        flex-basis: 55%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        img{
+          width: 250px;
+          height: 180px;
+        }
+      }
+  }
+  section.playonanyscreen{
+    display: flex;
+    background: none;
+      .catch{
+        background-color: #eeeeee;
+        color:$light-grey;
+        flex-basis: 55%;
+        padding: 5rem;
+      }
+      .picture{
+        background: linear-gradient(
+            rgba(#D9AF5A , .66), 
+            rgba(#D9AF5A , .66)
+          ),url('../assets/tv2.jpg') no-repeat;
+        background-position: center;
+        background-size: cover;
+        flex-basis: 45%;
+      }
+  }
+  section.yourphoneisremote{
+    display: flex;
+    background: none;
+      .catch{
+        color:$light-grey;
+        flex-basis: 55%;
+        padding: 5rem;
+        align-items: flex-start;
+      }
+      .picture{
+        background: linear-gradient(
+          rgba(#7BE185 , .66), 
+          rgba(#7BE185 , .66)
+        ),url('../assets/phone.jpg') no-repeat;
+        background-position: center;
+        background-size: cover;
+        flex-basis: 45%;
+      }
+  }
+
+
+
+}
+
+@include computer{
+  section.about, section.playonanyscreen, section.yourphoneisremote{
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}

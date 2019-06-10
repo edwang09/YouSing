@@ -1,0 +1,27 @@
+table{
+    width: 100%;
+    td, th { 
+        color: darken(#398B93, 10%);
+        padding: 1rem; 
+    }
+    td {
+        text-align: center;
+        vertical-align: middle;
+        .actions{
+            a{
+                margin-right:1rem;
+                margin-left:1rem;
+                font-size: 130%;
+            }
+        }
+    }
+    
+    th { 
+        background-color: lighten(#398B93, 50%);
+        font-weight: 300;
+    }
+    tr {     
+        &:nth-child(2n) { background-color: white; }
+        &:nth-child(2n+1) { background-color: lighten(#398B93, 55%) }
+    }
+}

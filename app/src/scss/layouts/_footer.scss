@@ -1,0 +1,72 @@
+footer{
+    background-color: $dark-grey;
+    color: #eeeeee;
+    .footer-container{
+        padding: 2rem 3rem;
+        .about{
+            .logo{
+                font-size: 200%
+            }
+            p{
+                font-size:80%;
+            }
+    
+        }
+        .footnav{
+            ul{
+                padding:0 0;
+                list-style: none;
+                text-align: center;
+                li.navitem{
+                    display: block;
+                    a{
+                        color:white;
+    
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include tablet-landscape{
+    .footer-container{
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        .about{
+            width:50%;
+            .logo{
+                font-size: 200%
+            }
+            p{
+                font-size:80%;
+            }
+    
+        }
+        hr{
+            display: none;
+        }
+        .divide{
+            background-color: white;
+            width: 1px;
+            height: 10rem;
+            
+        }
+        .footnav{
+            width:50%;
+            ul{
+                padding:0 2rem;
+                list-style: none;
+                text-align: left;
+                li.navitem{
+                    display: block;
+                    a{
+                        color:white;
+    
+                    }
+                }
+            }
+        }
+    }
+}

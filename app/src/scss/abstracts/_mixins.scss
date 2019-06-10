@@ -1,0 +1,71 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass mixins.
+// -----------------------------------------------------------------------------
+
+/// Event wrapper
+/// @author Harry Roberts
+/// @param {Bool} $self [false] - Whether or not to include current selector
+/// @link https://twitter.com/csswizardry/status/478938530342006784 Original tweet from Harry Roberts
+@mixin on-event($self: false) {
+    @if $self {
+      &,
+      &:hover,
+      &:active,
+      &:focus {
+        @content;
+      }
+    } @else {
+      &:hover,
+      &:active,
+      &:focus {
+        @content;
+      }
+    }
+  }
+  
+  /// Make a context based selector a little more friendly
+  /// @author Hugo Giraudel
+  /// @param {String} $context
+  @mixin when-inside($context) {
+    #{$context} & {
+      @content;
+    }
+  }
+
+
+  /// Media query mixins
+  /// small: 0 ~ 480 px
+  /// medium: 481 ~ 839 px
+  /// large: 839 ~ 1024 px
+  /// x-large: 1024 ~  px
+
+  @mixin tablet-portrait {
+    @media(min-width: 480px){@content}
+  };
+  @mixin tablet-landscape {
+    @media(min-width: 839px){@content}
+  };
+  @mixin m-tablet-portrait {
+    @media(max-width: 480px){@content}
+  };
+  @mixin m-tablet-landscape {
+    @media(max-width: 839px){@content}
+  };
+  @mixin computer {
+    @media(min-width: 1024px){@content}
+  };
+
+  ///Shadow mixins
+  @mixin shadow($depth:1) {
+    box-shadow:$depth*1px $depth*1px $depth*2*2px rgb(117, 117, 117);
+  }
+  ///Container mixins
+  @mixin container($width:1100) {
+    max-width: $width*1px;
+    margin-left: auto;
+    margin-right: auto;
+    padding:1rem 2rem;
+  }
+
+
+  

@@ -1,0 +1,84 @@
+.modal{
+    .overlay {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 1000;
+      background-color: rgba(0, 0, 0, .65);
+    }
+    .content {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 10000;
+      overflow: auto;
+      text-align: center;
+      padding: 4px;
+      cursor: pointer;
+      
+      &:after {
+        vertical-align: middle;
+        display: inline-block;
+        height: 100%;
+        margin-left: -.05em;
+        content: '';
+      }
+      .dialog {
+        position: relative;
+        background-color: #fefefe;
+        outline: 0;
+        width: 80%;
+        max-width: 500px;
+        margin: auto;
+        border: 1px solid #888;
+        display: inline-block;
+        vertical-align: middle;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+        max-width: auto;
+        cursor: default;
+        border-radius: 4px;
+        animation-name: animatetop;
+        animation-duration: 0.4s;
+        .modal-header {
+          padding: 10px 16px;
+          position: relative;
+        }
+        .modal-body {
+          text-align: left;
+          padding: 10px 16px;
+          padding-bottom:3rem;
+        }
+        .actions{
+          display:flex;
+          justify-content: space-around;
+        }
+        .itemcard{
+          border: 1px solid #ededed;
+          border-radius: 5px;
+          display: flex;
+          justify-content: flex-start;
+          flex-direction: column;
+          .thumbnail{
+              img{
+                  display: block;
+                  width:100%;
+              }
+          }
+          .information{
+              padding: 0 1rem;
+              p{
+                  margin-bottom: 0.5rem;
+                  color: #555;
+              }
+          }
+  
+        }
+      }
+    }
+  }

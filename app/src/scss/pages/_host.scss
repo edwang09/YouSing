@@ -1,0 +1,31 @@
+.karaoke-host{
+    background-color: black;
+    .videocontainer{
+        margin: auto;
+    }
+    .header{
+        display: none;
+        position: fixed;
+        top: 5rem;
+        left: 5rem;
+        background-color: #edededbb;
+        padding: 0.5rem;
+        max-width: 900px;
+        &.header-show{
+            display: block,
+        }
+    }
+    .lyric{
+        display: none;
+        position: fixed;
+        top: 5rem;
+        right: 3rem;
+        background-color: #edededbb;
+        padding: 0.5rem;
+        max-width: 600px;
+        &.lyric-show{
+            display: block,
+        }
+
+    }
+}

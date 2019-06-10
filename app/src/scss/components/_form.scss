@@ -1,0 +1,55 @@
+@mixin formgroup($display:block) {
+  width: 100%;
+      label{
+        font-size: 100%;
+        font-family: Verdana;
+        display: $display;
+        margin-top: 1rem;
+        margin-right:.5rem;
+      }
+      input[type=text], input[type=password], select, textarea{
+        display:$display;
+        padding:0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-top: .5rem;
+        margin-bottom: 1rem;
+      }
+      input[type=number]{
+        display:$display;
+        padding:0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-top: .5rem;
+        margin-bottom: 1rem;
+      }
+      textarea{
+        width: 90%;
+      }
+      .is-invalid{
+        border-color: red !important;
+      }
+      
+      .invalid-feedback{
+        font-size: 75%;
+        color:red;
+      }
+}
+
+form {
+    padding: 0.5rem;
+    .formgroup{
+      @include formgroup;
+      &--inline{
+        @include formgroup(inline);
+
+      }
+    }
+    input[type=text]{
+      width: 100%;
+    }
+    button, input[type=submit]{
+      display: block;
+      margin:16px 0;
+    }
+  }

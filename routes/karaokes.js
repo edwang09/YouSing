@@ -5,13 +5,7 @@ const fs = require('fs');
 const soxPath = require("../config/keys").soxPath;
 const ffmpegPath = require("../config/keys").ffmpegPath;
 const YoutubeMp3Downloader = require("youtube-mp3-downloader");
-const YD = new YoutubeMp3Downloader({
-    "ffmpegPath": ffmpegPath,        // Where is the FFmpeg binary located?
-    "outputPath": "./karaoke",    // Where should the downloaded and encoded files be stored?
-    "youtubeVideoQuality": "highest",       // What video quality should be used?
-    "queueParallelism": 2,                  // How many parallel downloads/encodes should be started?
-    "progressTimeout": 2000                 // How long should be the interval of the progress reports
-});
+
 const sox = require('sox-stream');
 
 const placeholder = {
@@ -21,7 +15,6 @@ const placeholder = {
 }
 
 function sendSocket(data,roomid){
-    console.log("send socket data")
     const socketData = {
         type:"push",
         roomid: roomid,
@@ -95,35 +88,44 @@ router.post("/order", (req, res) => {
     const link = order.link;
     const path = "karaoke/" + link + ".mp3"
     if (!fs.existsSync(path)){
-        YD.download(link,link+".mp3");
-        YD.on("finished", function(err, data) {
-            Karaoke.findOne({roomid:roomid}).then(karaoke => {
-                if (karaoke.current.link === "placeholder"){
-                    karaoke.current = order
-                    karaoke.save()
-                    .then(karaoke => {
-                        sendSocket(karaoke,roomid)
-                        res.json(karaoke)})
-                    .catch(err=>{
-                        console.log(err)
-                    })
-                }else if(data.videoId === link){
-                    console.log(order)
-                    karaoke.queue.push( order )
-                    karaoke.save()
-                    .then(karaoke => {
-                        sendSocket(karaoke,roomid)
-                        res.json(karaoke)})
-                    .catch(err=>{
-                        console.log(err)
-                    })
-                }
-                
+            const YD = new YoutubeMp3Downloader({
+                "ffmpegPath": ffmpegPath,        // Where is the FFmpeg binary located?
+                "outputPath": "./karaoke",    // Where should the downloaded and encoded files be stored?
+                "youtubeVideoQuality": "highest",       // What video quality should be used?
+                "queueParallelism": 2,                  // How many parallel downloads/encodes should be started?
+                "progressTimeout": 2000                 // How long should be the interval of the progress reports
             });
-        });
-        YD.on("error", function(err, data) {
-            console.log(err)
-        });
+            YD.on("error", function(err, data) {
+                console.log(err)
+            });
+            YD.on("finished", function(err, data) {
+                console.log(order)
+                Karaoke.findOne({roomid:roomid}).then(karaoke => {
+                    if (karaoke.current.link === "placeholder"){
+                        karaoke.current = order
+                        karaoke.save()
+                        .then(karaoke => {
+                            sendSocket(karaoke,roomid)
+                            res.json(karaoke)
+                        })
+                        .catch(err=>{
+                            console.log(err)
+                        })
+                    }else if(data.videoId === link){
+                        karaoke.queue.push( order )
+                        karaoke.save()
+                        .then(karaoke => {
+                            sendSocket(karaoke,roomid)
+                            res.json(karaoke)
+                        })
+                        .catch(err=>{
+                            console.log(err)
+                        })
+                    }
+                    
+                });
+            });
+            YD.download(link,link+".mp3");
     }else{
         Karaoke.findOne({roomid:roomid}).then(karaoke => {
             if (karaoke.current.link === "placeholder"){
@@ -140,8 +142,6 @@ router.post("/order", (req, res) => {
             })
         });
     }
-    
-    
 });
 
 
@@ -169,8 +169,8 @@ router.get("/audio/:url", (req, res) => {
     }
 });
 
-//@route   POST api/karaoke/room
-//@desc    room karaoke host
+//@route   POST api/karaokes/room
+//@desc    room karaoke hosts
 //@access  Public
 router.post("/room", (req, res) => {
     const roomid = req.body.roomid;
@@ -186,7 +186,7 @@ router.post("/room", (req, res) => {
     });
 });
 
-//@route   POST api/karaoke/next
+//@route   POST api/karaokes/next
 //@desc    next karaoke host
 //@access  Public
 router.post("/next", (req, res) => {

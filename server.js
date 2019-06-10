@@ -11,7 +11,7 @@ const WebSocket = require('ws');
 //keep heroku alive
 var request = require("request");
 setInterval(async function() {
-  await request.get("http://www.yoshio.space");
+  await request.get("https://yousing.herokuapp.com/");
 }, 300000); // every 5 minutes (300000)
 
 
@@ -22,13 +22,11 @@ const app = express();
 //ws Clients container
 WSCLIENTS = {}
 
-
-
 // ws Clients cleaning
 function WSclean(roomid){
   if (WSCLIENTS[roomid]){
     const newclient = WSCLIENTS[roomid].client.filter(ws=>ws.ws.readyState === 1)
-    const newhost = (WSCLIENTS[roomid].host.ws.readyState===1 ? WSCLIENTS[roomid].host : undefined)
+    const newhost = (WSCLIENTS[roomid].host.ws && WSCLIENTS[roomid].host.ws.readyState===1 ? WSCLIENTS[roomid].host : undefined)
     WSCLIENTS[roomid] = {host:newhost,client:newclient}
   }
 }
@@ -43,7 +41,7 @@ function printwsclient(WSCLIENTS){
     }
     if (WSCLIENTS[key].client){
       WSCLIENTS[key].client.forEach(client=>{
-        console.log("client: " + client.clientID + ",status: " + WSCLIENTS[key].host.ws.readyState)
+        console.log("client: " + client.clientID + ",status: " + client.ws.readyState)
       })
     }
   })
@@ -64,36 +62,30 @@ app.use(
 );
 app.use(bodyParser.json());
 
-// //Permissions Control (will be deleted)
-// app.use(function(req, res, next) {
-//   // Website you wish to allow to connect
-//   var allowedOrigins = [
-//     "http://localhost:4200/",
-//     "http://localhost:3000/",
-//     "http://localhost:8080/",
-//     "https://www.amethystfs891.com"
-//   ];
-//   var origin = req.headers.origin;
-//   if (origin && allowedOrigins.indexOf(origin) > -1) {
-//     res.setHeader("Access-Control-Allow-Origin", origin);
-//     console.log(origin + "allowed")
-//   }else if ( origin ){
-//     //res.setHeader("Access-Control-Allow-Origin", origin);
-//     console.log(origin + "not allowed")
-//   }
-//   // Request methods you wish to allow
-//   res.setHeader("Access-Control-Allow-Methods", "GET, POST");
-//   // Request headers you wish to allow
-//   res.setHeader(
-//     "Access-Control-Allow-Headers",
-//     "Origin, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, X-Requested-With, X-Response-Time, X-PINGOTHER, X-CSRF-Token,Authorization"
-//   );
-//   // Set to true if you need the website to include cookies in the requests sent
-//   // to the API (e.g. in case you use sessions)
-//   res.setHeader("Access-Control-Allow-Credentials", true);
-//   // Pass to next layer of middleware
-//   next();
-// });
+//Permissions Control (will be deleted)
+app.use(function(req, res, next) {
+  // Website you wish to allow to connect
+  var allowedOrigins = [
+    "http://localhost:3000"
+  ];
+  var origin = req.headers.origin;
+  if (origin && allowedOrigins.indexOf(origin) > -1) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }else if ( origin ){
+  }
+  // Request methods you wish to allow
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST");
+  // Request headers you wish to allow
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, X-Requested-With, X-Response-Time, X-PINGOTHER, X-CSRF-Token,Authorization"
+  );
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  // Pass to next layer of middleware
+  next();
+});
 
 app.use("/api/karaokes", karaokes);
 if (process.env.NODE_ENV === "production") {
@@ -109,11 +101,11 @@ const wss = new WebSocket.Server({server});
 wss.on("connection",function(ws){
   ws.on('message', function(message) {
     if (message==="ping"){
-      console.log("ping")
+      // console.log("ping")
       ws.send("pong")
     }else{
       const msg = JSON.parse(message)
-      console.log(msg)
+      // console.log(msg)
       switch (msg.type) {
         case "register":
           const clientID = uuidv1()
@@ -143,33 +135,11 @@ wss.on("connection",function(ws){
             }
           })
           break;
-        case "next":
+        case "tohost":
           if (WSCLIENTS[msg.roomid] && WSCLIENTS[msg.roomid].host && WSCLIENTS[msg.roomid].host.ws.readyState===1){
                 WSCLIENTS[msg.roomid].host.ws.send(JSON.stringify({
-                  type:"next"
-                }),function ack(error) {
-                  if (error){
-                    console.log(error)
-                  }
-                })
-          }
-          break;
-  
-        case "withvocal":
-          if (WSCLIENTS[msg.roomid] && WSCLIENTS[msg.roomid].host && WSCLIENTS[msg.roomid].host.ws.readyState===1){
-                WSCLIENTS[msg.roomid].host.ws.send(JSON.stringify({
-                  type:"withvocal"
-                }),function ack(error) {
-                  if (error){
-                    console.log(error)
-                  }
-                })
-          }
-          break;
-        case "novocal":
-          if (WSCLIENTS[msg.roomid] && WSCLIENTS[msg.roomid].host && WSCLIENTS[msg.roomid].host.ws.readyState===1){
-                WSCLIENTS[msg.roomid].host.ws.send(JSON.stringify({
-                  type:"novocal"
+                  type : "tohost",
+                  command : msg.command
                 }),function ack(error) {
                   if (error){
                     console.log(error)
@@ -186,10 +156,9 @@ wss.on("connection",function(ws){
     }
   });
 })
-
-
-
-
+wss.on("error",function(err){
+  console.log(err)
+})
 
 const port = process.env.PORT || 8080;
 
