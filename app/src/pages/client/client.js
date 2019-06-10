@@ -52,7 +52,7 @@ class Client extends Component {
   roomidSubmit= () => e => {
     e.preventDefault()
     console.log(this.state.roomid)
-    axios.post("http://localhost:8080/api/karaokes/room",{
+    axios.post("/api/karaokes/room",{
       roomid:this.state.roomid
     }).then(res=>{
       console.log(res)
@@ -104,7 +104,7 @@ class Client extends Component {
     this.connection.send(msg)
   }
   // componentDidMount(){
-  //   axios.post("http://localhost:8080/api/karaokes/room",{
+  //   axios.post("/api/karaokes/room",{
   //     roomid:"9761353"
   //   }).then(res=>{
   //     console.log(res)

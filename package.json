@@ -31,5 +31,6 @@
     "ignore": [
       "karaoke/*"
     ]
-  }
+  },
+  "proxy": "http://localhost:8080"
 }
