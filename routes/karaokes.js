@@ -161,11 +161,12 @@ router.get("/audio/:url", (req, res) => {
         })
         fs.createReadStream(path)
         .pipe( transform ).on("error",e=>{
-            // console.log(e)
+            console.log(e)
         })
         .pipe(res);
     }else{
         res.send({failed:true})
+        console.log("failed")
     }
 });
 
