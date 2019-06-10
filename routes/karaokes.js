@@ -4,7 +4,7 @@ const Karaoke = require("../models/Karaoke");
 const fs = require('fs');
 const soxPath = require("../config/keys").soxPath;
 const ffmpegPath = require("../config/keys").ffmpegPath;
-const YoutubeMp3Downloader = require("youtube-mp3-downloader");
+const YoutubeMp3Downloader = require("../youtube-downloader");
 
 const sox = require('sox-stream');
 
