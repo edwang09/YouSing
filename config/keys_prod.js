@@ -3,5 +3,5 @@ module.exports = {
   JWTkey: process.env.JWT_KEY,
   soxPath: "sox" ,
   ffmpegPath: "ffmpeg",
-  ws: "ws://www.yoshio.space"
+  ws: "ws://yousing.herokuapp.com"
 };
