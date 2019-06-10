@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import PropTypes from 'prop-types'
 import { loadModal } from "../../actions/modalActions";
 import classNames from 'classnames'
-import YouTube from 'react-youtube';
 import ReactPlayer from 'react-player'
 
 class Host extends Component {
