@@ -37,7 +37,7 @@ class Host extends Component {
     this.waitForOrder(roomid)
   } 
   componentDidMount() {
-    this.connection = new WebSocket((process.env.NODE_ENV === "production"? "ws://yousing.herokuapp.com" : "ws://localhost:8080"));
+    this.connection = new WebSocket((process.env.NODE_ENV === "production"? "wss://yousing.herokuapp.com" : "ws://localhost:8080"));
     this.connection.onopen = evt => { 
       this.setState({socket: "on"})
       if (this.state.roomid){

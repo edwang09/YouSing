@@ -59,7 +59,7 @@ class Client extends Component {
       this.setState({
         currentroom: res.data
       })
-      this.connection = new WebSocket((process.env.NODE_ENV === "production"? "ws://yousing.herokuapp.com" : "ws://localhost:8080"));
+      this.connection = new WebSocket((process.env.NODE_ENV === "production"? "wss://yousing.herokuapp.com" : "ws://localhost:8080"));
       console.log(this.connection)
       this.connection.onopen = evt => { 
         this.setState({socket: "on"})
