@@ -2,7 +2,7 @@
   "name": "yousing",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "server": "nodemon server",
     "heroku": "git add . && git commit -m \"update\" && git push heroku master",
