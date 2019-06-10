@@ -66,7 +66,8 @@ app.use(bodyParser.json());
 app.use(function(req, res, next) {
   // Website you wish to allow to connect
   var allowedOrigins = [
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "https://yousing.herokuapp.com"
   ];
   var origin = req.headers.origin;
   if (origin && allowedOrigins.indexOf(origin) > -1) {
