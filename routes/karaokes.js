@@ -3,10 +3,11 @@ const router = express.Router();
 const Karaoke = require("../models/Karaoke");
 const fs = require('fs');
 const soxPath = require("../config/keys").soxPath;
+const sox = require('sox-stream');
+
 const ffmpegPath = require("../config/keys").ffmpegPath;
 const YoutubeMp3Downloader = require("../youtube-downloader");
 
-const sox = require('sox-stream');
 
 const placeholder = {
     link: "placeholder",
@@ -152,6 +153,7 @@ router.post("/order", (req, res) => {
 router.get("/audio/:url", (req, res) => {
     const url = req.params.url
     const path = "karaoke/" + url + ".mp3"
+    
     if (fs.existsSync(path)){
         const transform = sox({
             soxPath : soxPath,
@@ -160,7 +162,7 @@ router.get("/audio/:url", (req, res) => {
             effects: 'oops'
         })
         fs.createReadStream(path)
-        .pipe( transform )
+        // .pipe( transform )
         .on("error",e=>{
             console.log(e)
         })

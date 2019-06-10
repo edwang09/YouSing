@@ -6,6 +6,9 @@ var ffmpeg = require("fluent-ffmpeg");
 var ytdl = require("ytdl-core");
 var async = require("async");
 var progress = require("progress-stream");
+const soxPath = require("../../config/keys").soxPath;
+const sox = require('sox-stream');
+const fs = require('fs');
 
 function YoutubeMp3Downloader(options) {
 
@@ -98,10 +101,15 @@ YoutubeMp3Downloader.prototype.performDownload = function(task, callback) {
             }
 
             //Derive file name, if given, use it, if not, from video title
-            var fileName = (task.fileName ? self.outputPath + "/" + task.fileName : self.outputPath + "/" + videoTitle + ".mp3");
-
+            var fileName = (task.fileName ? self.outputPath + "/original" + task.fileName : self.outputPath + "/original" + videoTitle + ".mp3");
+            var acfileName = (task.fileName ? self.outputPath + "/" + task.fileName : self.outputPath + "/" + videoTitle + ".mp3");
             ytdl.getInfo(videoUrl, { quality: self.youtubeVideoQuality }, function(err, info) {
-
+                const transform = sox({
+                    soxPath : soxPath,
+                    input: { type: 'mp3' },
+                    output: { type: 'mp3' },
+                    effects: 'oops'
+                })
                 //Stream setup
                 var stream = ytdl.downloadFromInfo(info, {
                     quality: self.youtubeVideoQuality,
@@ -148,7 +156,12 @@ YoutubeMp3Downloader.prototype.performDownload = function(task, callback) {
                         resultObj.artist = artist;
                         resultObj.title = title;
                         resultObj.thumbnail = thumbnail;
-                        callback(null, resultObj);
+                        fs.createReadStream(fileName)
+                        .pipe(transform).on("error",e=>{
+                        })
+                        .on("finish",err=>{
+                            callback(null, resultObj)})
+                        .pipe( fs.createWriteStream(acfileName) )
                     })
                     .saveToFile(fileName);
 
