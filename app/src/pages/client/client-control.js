@@ -18,7 +18,7 @@ class Clientcontrol extends Component {
   
   render() {
     return (
-      <div  className={classNames("control",{"tab-open":this.props.currenttab === "control"})}>
+      <div  className={classNames("control",{"tab-open":this.props.currenttab === "control"},{"control-open":this.props.controlopen})}>
           <div className="button-group">
             <h5><i className="fas fa-microphone-alt"></i>Original / Accompany</h5>
             <hr/>

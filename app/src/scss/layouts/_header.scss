@@ -23,14 +23,15 @@ nav.navbar{
       display:block;
       width: 12rem;
       color: white;
-      border: 3px solid #333;
+      border: 3px solid #ededed;
       border-radius: 1rem;
       padding: 0.5rem 1rem;
-      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-      font-weight: 500;
-      font-size: 150%;
+      font-family: 'Righteous', cursive;
+      font-weight: bolder;
+      font-size: 170%;
       &:hover{
-        background-color: rgb(187, 187, 187);
+        background-color: #ededed;
+        color:$brand-color;
         cursor: pointer;
       }
     }
@@ -44,14 +45,16 @@ nav.navbar{
         left:0;
         opacity:0.9;
         overflow-x:hidden;
-        background-color: #ededed;
+        background-color: $brand-color;
         padding-top:60px;
         transition:0.5s;
         .navbar__nav, .navbar__auth{
           list-style: none;
+          padding: 0;
+          white-space: nowrap;
           .nav-item{
               text-align: center;
-              transition:all 0.2s;
+              transition:all 0.5s;
               .nav-link{
                   display: block;
                   padding: 0.5rem 1rem;
@@ -59,8 +62,10 @@ nav.navbar{
                   font-weight: 600;
               }
               &:hover{
+                border-radius: 2.5rem;
+                background-color: #ededed;
                 .nav-link{
-                  color:white;
+                  color:$brand-color;
                 }
                 cursor: pointer;
               }
@@ -80,29 +85,31 @@ nav.navbar{
                 &:hover .dropdown-content {
                   height:auto;
                   .nav-link:hover{
-                    background-color:#ddd;
+                    background-color:#ededed;
                   }
                 }
               }
           }
           .btn-close{
-            display: inline;
+            display: block;
             position:absolute;
+            line-height:3rem;
+            text-align: center;
+            margin: 0;
             top:0;
             right:22px;
-            font-size:36px;
-            margin-left:50px;
-            color:#222;
+            font-size:4rem;
+            color:#ededed;
             text-decoration: none;
             &:hover{
-                color: #555;
+                color:white;
                 cursor: pointer;
             }
         }
       }
     }
     .sidebar-open{
-      width:250px;
+      width: 250px;
     }
     @include tablet-landscape{
       .navbar__toggle{

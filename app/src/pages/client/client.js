@@ -118,13 +118,13 @@ class Client extends Component {
   render() {
     return (
       <div className = "karaoke-client">
-        <Clientheader opensearchbar={this.opensearchbar}/>
-        <Clientfooter tabChange={this.tabChange} currenttab={this.state.currenttab}/>
-        <div>
           {this.state.currentroom && 
+          <div>
+            <Clientheader opensearchbar={this.opensearchbar}/>
+            <Clientfooter tabChange={this.tabChange} currenttab={this.state.currenttab}/>
             <div className = "content">
               <Clientcurrent currentroom={this.state.currentroom} socket={this.state.socket} clientID={this.state.clientID} currenttab={this.state.currenttab}/>
-              <Clientcontrol currentroom={this.state.currentroom} sendsocket={this.sendsocket} clientID={this.state.clientID} currenttab={this.state.currenttab}/>
+              <Clientcontrol currentroom={this.state.currentroom} sendsocket={this.sendsocket} clientID={this.state.clientID} currenttab={this.state.currenttab} controlopen = {this.state.controlOpen}/>
               <div className="divider"></div>
               <div className={classNames("searchbar",{"searchbar-open":this.state.searchbarOpen})}>
                 <Clientsearch closesearchbar={this.closesearchbar} currentroom={this.state.currentroom} loadModal={this.props.loadModal}/>
@@ -133,11 +133,11 @@ class Client extends Component {
                 <i className="fas fa-gamepad"></i>
               </div>
             </div>
+          </div>
           }
           {!this.state.currentroom && 
             <Cliententry roomidSubmit={this.roomidSubmit} roomidChange={this.roomidChange} roomid={this.state.roomid}/>
           }
-        </div>
       </div>
     )
   }

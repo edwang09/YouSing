@@ -456,6 +456,7 @@ template {
 html {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
 }
 
 h1,
@@ -464,16 +465,19 @@ h3,
 h4,
 h5 {
   line-height: 1.5;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 h6,
 ul,
 li,
 p,
+span,
+label,
 blockquote {
   line-height: 1.2;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: 'Montserrat', sans-serif;
 }
 
 hr {
@@ -497,7 +501,7 @@ hr {
  * Basic styles for links
  */
 a {
-  color: #720E71;
+  color: inherit;
   text-decoration: none;
 }
 
@@ -564,7 +568,6 @@ section.intro {
 section.intro .catch-container {
   margin: 4rem auto;
   color: #888888;
-  font-weight: bolder;
   max-width: 20rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -576,6 +579,15 @@ section.intro .catch-container {
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
+}
+
+section.intro .catch-container p {
+  font-size: 2.5rem;
+  font-family: 'Montserrat', sans-serif;
+}
+
+section.intro .catch-container p .brand {
+  font-family: 'Righteous', cursive;
 }
 
 section.intro .catch-container button {
@@ -797,11 +809,20 @@ section.yourphoneisremote .catch button {
 .karaoke-client .header .head .brand {
   text-align: center;
   display: block;
-  color: #888888;
+  width: 12rem;
+  color: white;
+  border: 3px solid #ededed;
+  border-radius: 1rem;
   padding: 0.5rem 1rem;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Righteous', cursive;
   font-weight: bolder;
   font-size: 160%;
+}
+
+.karaoke-client .header .head .brand:hover {
+  background-color: #ededed;
+  color: #720E71;
+  cursor: pointer;
 }
 
 .karaoke-client .header .search-icon {
@@ -1088,7 +1109,33 @@ section.yourphoneisremote .catch button {
 }
 
 .karaoke-client .entry {
-  margin: 5px;
+  padding: 2.5rem;
+  border-radius: 2.5rem;
+  margin: auto;
+  margin-top: 3rem;
+}
+
+.karaoke-client .entry .entry-head {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.karaoke-client .entry .entry-head i {
+  color: #720E71;
+}
+
+.karaoke-client .entry .instruction {
+  color: blue;
+  display: block;
+  margin-top: 0;
+  font-size: 85%;
+  text-align: right;
+}
+
+.karaoke-client .entry .instruction:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .karaoke-client .control-button {
@@ -1110,8 +1157,31 @@ section.yourphoneisremote .catch button {
 }
 
 @media (min-width: 839px) {
-  .karaoke-client .header, .karaoke-client .footer {
+  .karaoke-client .footer {
     display: none;
+  }
+  .karaoke-client .header {
+    position: initial;
+    background-color: white;
+  }
+  .karaoke-client .header .head .brand {
+    color: #720E71;
+    border-color: #720E71;
+  }
+  .karaoke-client .header .close-box {
+    display: none;
+  }
+  .karaoke-client .header .search-icon {
+    display: none;
+  }
+  .karaoke-client .entry {
+    max-width: 600px;
+    border: 1px solid #ededed;
+    border-radius: 2.5rem;
+    margin-top: 10rem;
+  }
+  .karaoke-client .entry .entry-head {
+    font-size: 3rem;
   }
   .karaoke-client .content {
     display: -webkit-box;
@@ -1166,15 +1236,15 @@ section.yourphoneisremote .catch button {
     transition: 0.3s;
     padding: 0;
   }
-  .karaoke-client .content .control.tab-open {
-    width: 300px;
+  .karaoke-client .content .control.control-open {
+    width: 350px;
     padding: 2rem 1rem;
   }
   .karaoke-client .control-button {
     display: block;
   }
   .karaoke-client .control-button.control-open {
-    right: 300px;
+    right: 350px;
   }
 }
 
@@ -1382,12 +1452,12 @@ section.yourphoneisremote .catch button {
 }
 
 button {
+  font-family: 'Montserrat', sans-serif;
   color: white;
   padding: 0.5rem;
   border-radius: 1rem;
   height: 2rem;
-  font-size: 75%;
-  font-weight: bold;
+  font-size: 85%;
   border: 0;
   cursor: pointer;
   background-color: #aaaaaa;
@@ -1402,12 +1472,12 @@ button:hover {
 }
 
 button.success {
+  font-family: 'Montserrat', sans-serif;
   color: white;
   padding: 0.5rem;
   border-radius: 1rem;
   height: 2rem;
-  font-size: 75%;
-  font-weight: bold;
+  font-size: 85%;
   border: 0;
   cursor: pointer;
   background-color: #aaaaaa;
@@ -1430,12 +1500,12 @@ button.success:hover {
 }
 
 button.error {
+  font-family: 'Montserrat', sans-serif;
   color: white;
   padding: 0.5rem;
   border-radius: 1rem;
   height: 2rem;
-  font-size: 75%;
-  font-weight: bold;
+  font-size: 85%;
   border: 0;
   cursor: pointer;
   background-color: #aaaaaa;
@@ -1458,12 +1528,12 @@ button.error:hover {
 }
 
 button.warning {
+  font-family: 'Montserrat', sans-serif;
   color: white;
   padding: 0.5rem;
   border-radius: 1rem;
   height: 2rem;
-  font-size: 75%;
-  font-weight: bold;
+  font-size: 85%;
   border: 0;
   cursor: pointer;
   background-color: #aaaaaa;
@@ -1486,12 +1556,12 @@ button.warning:hover {
 }
 
 button.secondary {
+  font-family: 'Montserrat', sans-serif;
   color: white;
   padding: 0.5rem;
   border-radius: 1rem;
   height: 2rem;
-  font-size: 75%;
-  font-weight: bold;
+  font-size: 85%;
   border: 0;
   cursor: pointer;
   background-color: #aaaaaa;
@@ -1756,16 +1826,17 @@ nav.navbar .navbar__brand {
   display: block;
   width: 12rem;
   color: white;
-  border: 3px solid #333;
+  border: 3px solid #ededed;
   border-radius: 1rem;
   padding: 0.5rem 1rem;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-weight: 500;
-  font-size: 150%;
+  font-family: 'Righteous', cursive;
+  font-weight: bolder;
+  font-size: 170%;
 }
 
 nav.navbar .navbar__brand:hover {
-  background-color: #bbbbbb;
+  background-color: #ededed;
+  color: #720E71;
   cursor: pointer;
 }
 
@@ -1782,7 +1853,7 @@ nav.navbar .navbar__menu {
   left: 0;
   opacity: 0.9;
   overflow-x: hidden;
-  background-color: #ededed;
+  background-color: #720E71;
   padding-top: 60px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
@@ -1790,12 +1861,14 @@ nav.navbar .navbar__menu {
 
 nav.navbar .navbar__menu .navbar__nav, nav.navbar .navbar__menu .navbar__auth {
   list-style: none;
+  padding: 0;
+  white-space: nowrap;
 }
 
 nav.navbar .navbar__menu .navbar__nav .nav-item, nav.navbar .navbar__menu .navbar__auth .nav-item {
   text-align: center;
-  -webkit-transition: all 0.2s;
-  transition: all 0.2s;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
 }
 
 nav.navbar .navbar__menu .navbar__nav .nav-item .nav-link, nav.navbar .navbar__menu .navbar__auth .nav-item .nav-link {
@@ -1806,11 +1879,13 @@ nav.navbar .navbar__menu .navbar__nav .nav-item .nav-link, nav.navbar .navbar__m
 }
 
 nav.navbar .navbar__menu .navbar__nav .nav-item:hover, nav.navbar .navbar__menu .navbar__auth .nav-item:hover {
+  border-radius: 2.5rem;
+  background-color: #ededed;
   cursor: pointer;
 }
 
 nav.navbar .navbar__menu .navbar__nav .nav-item:hover .nav-link, nav.navbar .navbar__menu .navbar__auth .nav-item:hover .nav-link {
-  color: white;
+  color: #720E71;
 }
 
 nav.navbar .navbar__menu .navbar__nav .nav-item.dropdown .dropdown-content, nav.navbar .navbar__menu .navbar__auth .nav-item.dropdown .dropdown-content {
@@ -1833,22 +1908,24 @@ nav.navbar .navbar__menu .navbar__nav .nav-item.dropdown:hover .dropdown-content
 }
 
 nav.navbar .navbar__menu .navbar__nav .nav-item.dropdown:hover .dropdown-content .nav-link:hover, nav.navbar .navbar__menu .navbar__auth .nav-item.dropdown:hover .dropdown-content .nav-link:hover {
-  background-color: #ddd;
+  background-color: #ededed;
 }
 
 nav.navbar .navbar__menu .navbar__nav .btn-close, nav.navbar .navbar__menu .navbar__auth .btn-close {
-  display: inline;
+  display: block;
   position: absolute;
+  line-height: 3rem;
+  text-align: center;
+  margin: 0;
   top: 0;
   right: 22px;
-  font-size: 36px;
-  margin-left: 50px;
-  color: #222;
+  font-size: 4rem;
+  color: #ededed;
   text-decoration: none;
 }
 
 nav.navbar .navbar__menu .navbar__nav .btn-close:hover, nav.navbar .navbar__menu .navbar__auth .btn-close:hover {
-  color: #555;
+  color: white;
   cursor: pointer;
 }
 
@@ -1921,7 +1998,23 @@ footer .footer-container {
 }
 
 footer .footer-container .about .logo {
-  font-size: 200%;
+  margin: auto;
+  text-align: center;
+  display: block;
+  width: 12rem;
+  color: white;
+  border: 3px solid #ededed;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  font-family: 'Righteous', cursive;
+  font-weight: bolder;
+  font-size: 170%;
+}
+
+footer .footer-container .about .logo:hover {
+  background-color: #ededed;
+  color: #720E71;
+  cursor: pointer;
 }
 
 footer .footer-container .about p {
@@ -1943,42 +2036,43 @@ footer .footer-container .footnav ul li.navitem a {
 }
 
 @media (min-width: 839px) {
-  .footer-container {
+  footer .footer-container {
     max-width: 1200px;
     margin: 0 auto;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
   }
-  .footer-container .about {
+  footer .footer-container .about {
     width: 50%;
   }
-  .footer-container .about .logo {
+  footer .footer-container .about .logo {
+    margin: initial;
     font-size: 200%;
   }
-  .footer-container .about p {
+  footer .footer-container .about p {
     font-size: 80%;
   }
-  .footer-container hr {
+  footer .footer-container hr {
     display: none;
   }
-  .footer-container .divide {
+  footer .footer-container .divide {
     background-color: white;
     width: 1px;
     height: 10rem;
   }
-  .footer-container .footnav {
+  footer .footer-container .footnav {
     width: 50%;
   }
-  .footer-container .footnav ul {
+  footer .footer-container .footnav ul {
     padding: 0 2rem;
     list-style: none;
     text-align: left;
   }
-  .footer-container .footnav ul li.navitem {
+  footer .footer-container .footnav ul li.navitem {
     display: block;
   }
-  .footer-container .footnav ul li.navitem a {
+  footer .footer-container .footnav ul li.navitem a {
     color: white;
   }
 }

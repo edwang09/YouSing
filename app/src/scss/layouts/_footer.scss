@@ -5,7 +5,22 @@ footer{
         padding: 2rem 3rem;
         .about{
             .logo{
-                font-size: 200%
+                margin: auto;
+                text-align: center;
+                display:block;
+                width: 12rem;
+                color: white;
+                border: 3px solid #ededed;
+                border-radius: 1rem;
+                padding: 0.5rem 1rem;
+                font-family: 'Righteous', cursive;
+                font-weight: bolder;
+                font-size: 170%;
+                &:hover{
+                    background-color: #ededed;
+                    color:$brand-color;
+                    cursor: pointer;
+                }
             }
             p{
                 font-size:80%;
@@ -27,8 +42,7 @@ footer{
             }
         }
     }
-}
-
+    
 @include tablet-landscape{
     .footer-container{
         max-width: 1200px;
@@ -37,6 +51,7 @@ footer{
         .about{
             width:50%;
             .logo{
+                margin: initial;
                 font-size: 200%
             }
             p{
@@ -69,4 +84,5 @@ footer{
             }
         }
     }
+}
 }

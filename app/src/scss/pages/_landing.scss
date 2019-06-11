@@ -9,11 +9,17 @@ section.intro{
     .catch-container{
       margin: 4rem auto;
       color: $light-grey;
-      font-weight: bolder;
       max-width: 20rem;
       display: flex;
       flex-direction: column;
       align-items: flex-end;
+      p{
+        font-size: 2.5rem;
+        font-family: 'Montserrat', sans-serif;
+        .brand{
+          font-family: 'Righteous', cursive;
+        }
+      }
       button{
         margin-top: 4rem;
         margin-bottom: 4rem;

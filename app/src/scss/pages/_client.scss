@@ -1,4 +1,5 @@
 .karaoke-client{
+
 .header{
     padding: 5px;
     position: fixed;
@@ -18,11 +19,19 @@
         .brand{
             text-align: center;
             display:block;
-            color: $light-grey;
+            width: 12rem;
+            color: white;
+            border: 3px solid #ededed;
+            border-radius: 1rem;
             padding: 0.5rem 1rem;
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-family: 'Righteous', cursive;
             font-weight: bolder;
             font-size: 160%;
+            &:hover{
+                background-color: #ededed;
+                color:$brand-color;
+                cursor: pointer;
+            }
         }
     }
     .search-icon{
@@ -250,7 +259,29 @@
 }
 
 .entry{
-    margin: 5px;;
+    padding: 2.5rem;
+    border-radius: 2.5rem;
+    margin: auto;
+    margin-top: 3rem;
+    .entry-head{
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+        i{
+            color: $brand-color
+        }
+    }
+    .instruction{
+        color:blue;
+        display: block;
+        margin-top: 0;
+        font-size: 85%;
+        text-align: right;
+        &:hover{
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
 }
 .control-button{
     display: none;
@@ -273,8 +304,35 @@
 
 @include tablet-landscape{
 .karaoke-client{
-    .header, .footer{
+    .footer{
         display: none;
+    }
+    .header{
+        position: initial;
+        background-color: white;
+        .head{
+            .brand{
+                color: $brand-color;
+                border-color: $brand-color;
+
+            }
+
+        }
+        .close-box{
+            display: none;
+        }
+        .search-icon{
+            display: none;
+        }
+    }
+    .entry{
+        max-width: 600px;
+        border: 1px solid #ededed;
+        border-radius: 2.5rem;
+        margin-top: 10rem;
+        .entry-head{
+            font-size: 3rem;
+        }
     }
     .content{
         display: flex;
@@ -319,8 +377,8 @@
             overflow-x:hidden;
             transition:0.3s;
             padding: 0;
-            &.tab-open{
-                width: 300px;
+            &.control-open{
+                width: 350px;
                 padding: 2rem 1rem;
             }
         }
@@ -329,7 +387,7 @@
     .control-button{
         display: block;
         &.control-open{
-            right: 300px;
+            right: 350px;
         }
     }
 }

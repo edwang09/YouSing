@@ -10,3 +10,6 @@ https://yousing.heroku.com
 - built-in stream for youtube-mp3-downloader to speed-up.
 - scale up for commercial use: karaoke-subfolder, room number display, room number input, etc.
 - heroku third-party storage service.
+- lyric searching api and display.
+- disable recommanding for forms. 
+- indicate when downloading. 

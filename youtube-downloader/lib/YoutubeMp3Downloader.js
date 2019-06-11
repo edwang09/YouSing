@@ -160,7 +160,9 @@ YoutubeMp3Downloader.prototype.performDownload = function(task, callback) {
                         .pipe(transform).on("error",e=>{
                         })
                         .on("finish",err=>{
-                            callback(null, resultObj)})
+                            fs.unlink(fileName,err=>{
+                                callback(null, resultObj)
+                            })})
                         .pipe( fs.createWriteStream(acfileName) )
                     })
                     .saveToFile(fileName);

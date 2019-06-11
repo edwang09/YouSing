@@ -29,11 +29,12 @@ export default class HomeNav extends Component {
           <nav className="navbar">
               <div className="navbar__toggle" onClick={this.toggleSlide()}>
                     <svg width="30" height="30">
-                        <path d="M0,5 30,5" stroke="#333" strokeWidth="5"/>
-                        <path d="M0,14 30,14" stroke="#333" strokeWidth="5"/>
-                        <path d="M0,23 30,23" stroke="#333" strokeWidth="5"/>
+                        <path d="M0,5 30,5" stroke="#ededed" strokeWidth="3"/>
+                        <path d="M0,14 30,14" stroke="#ededed" strokeWidth="3"/>
+                        <path d="M0,23 30,23" stroke="#ededed" strokeWidth="3"/>
                     </svg>
               </div>
+              
               <Link to="/" className="navbar__brand">
                 You Sing
               </Link>
@@ -41,8 +42,13 @@ export default class HomeNav extends Component {
                 <ul className="navbar__nav">
                   <p  className="btn-close" onClick={this.toggleSlide()}>&times;</p>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/">
-                      Home
+                    <Link className="nav-link" to="/host">
+                      Host Device
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/client">
+                      Client Device
                     </Link>
                   </li>
                   <li className="nav-item">

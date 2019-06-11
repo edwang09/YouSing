@@ -12,7 +12,7 @@ export default class Landing extends Component {
           <HomeNav></HomeNav>
           <div className="catch">
             <div className="catch-container">
-            <h1>Make Home Karaoke Up-to-date with YouSing</h1>
+            <p>Make Home Karaoke Up-to-date with <span className="brand">YouSing</span></p>
             <button>Start Karaoke</button>
             </div>
           </div>

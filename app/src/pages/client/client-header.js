@@ -9,7 +9,9 @@ class Clientheader extends Component {
     return (
       <div className="header">
         <div className="close-box">
+            <Link to="/">
             <i className="fas fa-times"></i>
+            </Link>
         </div>
         <div className="head">
             <Link to="/" className="brand">

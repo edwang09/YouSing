@@ -11,6 +11,8 @@ class Host extends Component {
     super(props);
     this.videoplayer = React.createRef();
     this.audioplayer = React.createRef();
+    this.keepAlive = null;
+    this.waitReady = null;
     this.state = {
         videoplaying: false,
         audioplaying: false,
@@ -36,6 +38,14 @@ class Host extends Component {
     // })
     this.waitForOrder(roomid)
   } 
+  componentWillUnmount(){
+    if (this.keepAlive){
+      clearInterval(this.keepAlive)
+    }
+    if (this.waitReady){
+      clearInterval(this.waitReady)
+    }
+  }
   componentDidMount() {
     this.connection = new WebSocket((process.env.NODE_ENV === "production"? "wss://yousing.herokuapp.com" : "ws://localhost:8080"));
     this.connection.onopen = evt => { 
@@ -47,7 +57,7 @@ class Host extends Component {
           "roomid":this.state.roomid
         }))
       }
-      setInterval(()=>{
+      this.keepAlive = setInterval(()=>{
         this.connection.send("ping")
       },30000)
     };
@@ -104,7 +114,8 @@ class Host extends Component {
       }
     };
     this.connection.onclose = evt => {
-        this.setState({socket: "off"})
+      clearInterval(this.keepAlive)
+      this.setState({socket: "off"})
     };
     this.connection.onerror = evt => { 
         this.setState({socket: "error"})
@@ -124,7 +135,7 @@ class Host extends Component {
       })
   }
   waitForReady = (e) =>{
-    const waitToPlay = setInterval(()=>{
+    this.waitReady = setInterval(()=>{
       console.log("wait to start audio")
       if (this.state.audioplayerReady){
         console.log("start audio")
@@ -135,7 +146,7 @@ class Host extends Component {
             }, 468 )
         
         //this.reactplayer.current.props.playing = true
-        clearInterval(waitToPlay)
+        clearInterval(this.waitReady)
       }
     },200)
   }
