@@ -3,9 +3,11 @@ import { connect } from "react-redux";
 
 import Testmodal from "./modals/Testmodal";
 import Ordermodal from "./modals/Ordermodal";
+import Lyricmodal from "./modals/Lyricmodal";
 const MODAL_COMPONENTS = {
   TEST_MODAL: Testmodal,
   ORDER_MODAL: Ordermodal,
+  LYRIC_MODAL: Lyricmodal,
 };
 
 class ModalContainer extends Component {

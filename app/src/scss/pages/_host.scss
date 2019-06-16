@@ -7,6 +7,8 @@
         display: none;
         position: fixed;
         top: 5rem;
+        max-width: 30vw;
+        font-size: 1vw;
         left: 5rem;
         background-color: #edededbb;
         padding: 0.5rem;
@@ -22,7 +24,8 @@
         right: 3rem;
         background-color: #edededbb;
         padding: 0.5rem;
-        max-width: 600px;
+        max-width: 50vw;
+        font-size: 1vw;
         &.lyric-show{
             display: block,
         }

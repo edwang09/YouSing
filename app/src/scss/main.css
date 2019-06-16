@@ -1007,10 +1007,20 @@ section.yourphoneisremote .catch button {
           justify-content: space-between;
 }
 
-.karaoke-client .content .searchbar .search .search-head .back-icon, .karaoke-client .content .searchbar .search .search-head .search-icon {
+.karaoke-client .content .searchbar .search .search-head .back-icon {
   color: #555;
   font-size: 200%;
   padding: 0 10px;
+}
+
+.karaoke-client .content .searchbar .search .search-head .search-lyric, .karaoke-client .content .searchbar .search .search-head .search-song {
+  display: block;
+  color: white;
+  margin-right: 5px;
+}
+
+.karaoke-client .content .searchbar .search .search-head .search-song {
+  background-color: #720E71;
 }
 
 .karaoke-client .content .searchbar .search .search-head .searchbar-input {
@@ -1028,7 +1038,7 @@ section.yourphoneisremote .catch button {
 }
 
 .karaoke-client .content .searchbar .search .searchresult .itemcard {
-  border: 1px solid #ededed;
+  border: 1px solid #ddd;
   border-radius: 5px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1106,6 +1116,39 @@ section.yourphoneisremote .catch button {
   overflow: auto;
   display: block;
   border-radius: 5px;
+}
+
+.karaoke-client .content .searchbar .search .searchresult .lyriccard {
+  padding: .5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin-bottom: .5rem;
+}
+
+.karaoke-client .content .searchbar .search .searchresult .lyriccard .information h5 {
+  margin: 0;
+}
+
+.karaoke-client .content .searchbar .search .searchresult .lyriccard .information .info {
+  margin: 0;
+  font-size: 80%;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.karaoke-client .content .searchbar .search .searchresult .lyriccard .issuedate {
+  font-size: 80%;
+  color: #555;
 }
 
 .karaoke-client .entry {
@@ -1260,6 +1303,8 @@ section.yourphoneisremote .catch button {
   display: none;
   position: fixed;
   top: 5rem;
+  max-width: 30vw;
+  font-size: 1vw;
   left: 5rem;
   background-color: #edededbb;
   padding: 0.5rem;
@@ -1277,7 +1322,8 @@ section.yourphoneisremote .catch button {
   right: 3rem;
   background-color: #edededbb;
   padding: 0.5rem;
-  max-width: 600px;
+  max-width: 50vw;
+  font-size: 1vw;
 }
 
 .karaoke-host .lyric.lyric-show {

@@ -21,7 +21,7 @@ class Host extends Component {
         socket:"off",
         changeroom:"",
         header: true,
-        lyric: false
+        lyric: true
     };
   }
   componentWillMount() {
@@ -206,7 +206,7 @@ class Host extends Component {
                         onEnded={this.next()}
                         ref={this.videoplayer}
                     />
-                    <ReactPlayer className="audiocontainer"  width="100px" height="100px" url={"/api/karaokes/audio/"+this.state.currentroom.current.link} 
+                    <ReactPlayer className="audiocontainer"  width="0" height="0" url={"/api/karaokes/audio/"+this.state.currentroom.current.link} 
                         playing = {this.state.audioplaying}
                         muted = {this.state.audiomuted}
                         onError = {this.playerError()}

@@ -35,9 +35,9 @@
         }
     }
     .search-icon{
-        color: white;
-        font-size: 200%;
-        padding: 0 10px;
+            color: white;
+            font-size: 200%;
+            padding: 0 10px;
     }
 }
 
@@ -160,10 +160,19 @@
             align-items:center;
             justify-content: space-between;
             
-            .back-icon, .search-icon{
+            .back-icon{
                 color: #555;
                 font-size: 200%;
                 padding: 0 10px;
+            }
+            .search-lyric, .search-song{
+                display: block;
+                color: white;
+                margin-right: 5px;
+
+            }
+            .search-song{
+                background-color: $brand-color;
             }
             .searchbar-input{
                 width:100%;
@@ -180,7 +189,7 @@
         }
         .searchresult{
             .itemcard{
-                border: 1px solid #ededed;
+                border: 1px solid #ddd;
                 border-radius: 5px;
                 display: flex;
                 align-items: center;
@@ -250,6 +259,31 @@
                         display: block;
                         border-radius: 5px;
                     }
+                }
+        
+            }
+            .lyriccard{
+                padding: .5rem;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row;
+                margin-bottom: .5rem;
+                .information{
+                    h5{
+                        margin: 0;
+                    }
+                    .info{
+                        margin: 0;
+                        font-size: 80%;
+                        margin-bottom: 0.5rem;
+                        color: #555;
+                    }
+                }
+                .issuedate{
+                    font-size: 80%;
+                    color: #555;
                 }
         
             }

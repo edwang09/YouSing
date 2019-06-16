@@ -16,7 +16,7 @@ class Client extends Component {
     super(props);
     this.top = React.createRef();
     this.state = {
-      searchbarOpen:true,
+      searchbarOpen:false,
       socket: "off",
       roomid:"",
       search:"",
@@ -118,7 +118,7 @@ class Client extends Component {
   render() {
     return (
       <div className = "karaoke-client">
-          {this.state.currentroom && 
+          {(this.state.currentroom && this.state.socket === "on")  && 
           <div>
             <Clientheader opensearchbar={this.opensearchbar}/>
             <Clientfooter tabChange={this.tabChange} currenttab={this.state.currenttab}/>
@@ -135,7 +135,7 @@ class Client extends Component {
             </div>
           </div>
           }
-          {!this.state.currentroom && 
+          {(!this.state.currentroom || this.state.socket === "off")  &&
             <Cliententry roomidSubmit={this.roomidSubmit} roomidChange={this.roomidChange} roomid={this.state.roomid}/>
           }
       </div>

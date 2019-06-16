@@ -19,15 +19,33 @@ class Clientsearch extends Component {
         this.setState({
             nextPageToken:res.data.nextPageToken,
             prevPageToken :res.data.prevPageToken,
-            items: res.data.items
+            items: res.data.items,
+            lyriclist: null
             })
             console.log(res.data.items)
         }).catch(err=>{
             console.log(err)
         })
     }
+    lyricSearch = () => e =>{
+      e.preventDefault()
+      axios.post("/api/lyric/search", {
+        "keywords":this.state.keywords
+      }).then(res=>{
+      console.log(res.data)  
+      this.setState({
+          nextPageToken:null,
+          prevPageToken :null,
+          items: null,
+          lyriclist: res.data
+          })
+      }).catch(err=>{
+          console.log(err)
+      })
+    }
   render() {
       let ItemsRender
+      let LyricRender
       if (this.state.items && this.state.items.length > 0){
         ItemsRender = this.state.items.map((item, idx)=>{
           return (
@@ -52,6 +70,26 @@ class Clientsearch extends Component {
           )
         })
       }
+      if (this.state.lyriclist && this.state.lyriclist.length > 0){
+        LyricRender = this.state.lyriclist.map((lyric, idx)=>{
+          return (
+            <div className="lyriccard" 
+                onClick={()=>this.props.loadModal("LYRIC_MODAL",{
+                  link: lyric.link
+                })} 
+                key={idx}>
+                <div className="information">
+                <h5>{ lyric.song }</h5>
+                <p className="info">{ lyric.singer }{" | "}{ lyric.album }
+                </p>
+                </div>
+                <div className="issuedate">
+                  { lyric.date }
+                </div>
+            </div>
+          )
+        })
+      }
     return (
       <div className="search">
           <div className="search-head">
@@ -64,12 +102,13 @@ class Clientsearch extends Component {
                     <small>Search for artist, song etc.</small>
                 </div>
             </form>
-            <div className="search-icon"  onClick={this.submitSearch()}>
-                <i className="fas fa-search"></i>
-            </div>
+            
+                <button className="search-lyric"  onClick={this.lyricSearch()}>Lyric</button>
+                <button className="search-song"  onClick={this.submitSearch()}>Song</button>
           </div>
         <div className="searchresult">
-            {ItemsRender}
+            {(ItemsRender && !LyricRender) && ItemsRender}
+            {(!ItemsRender && LyricRender) && LyricRender}
         </div>
       </div>
     )
