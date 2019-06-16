@@ -14,7 +14,7 @@ class Clientsearch extends Component {
     }
     submitSearch = () => e =>{
         e.preventDefault()
-        axios.get("https://www.googleapis.com/youtube/v3/search?key=AIzaSyACXG0BY_of5_4SHtgG8H9bVrHrUVnfX24&part=snippet&maxResults=25&q="+ this.state.keywords).then(res=>{
+        axios.get("https://www.googleapis.com/youtube/v3/search?key=AIzaSyACXG0BY_of5_4SHtgG8H9bVrHrUVnfX24&type=video&part=snippet&maxResults=25&q="+ this.state.keywords).then(res=>{
         console.log(res.data)  
         this.setState({
             nextPageToken:res.data.nextPageToken,
@@ -48,26 +48,30 @@ class Clientsearch extends Component {
       let LyricRender
       if (this.state.items && this.state.items.length > 0){
         ItemsRender = this.state.items.map((item, idx)=>{
-          return (
-            <div className="itemcard" 
-                onClick={()=>this.props.loadModal("ORDER_MODAL",{
-                video: {img: item.snippet.thumbnails.medium.url,
-                link: item.id.videoId,
-                title: item.snippet.title},
-                roomid: this.props.currentroom.roomid
-                })} 
-                key={idx}>
-                <div className="information">
-                <h5>{ item.snippet.title }</h5>
-                <p className="info">{ item.snippet.channelTitle }{" | "}{ item.snippet.publishedAt }
-                </p>
-                <p className="description">{ item.snippet.description }</p>
-                </div>
-                <div className="thumbnail">
-                <img src={item.snippet.thumbnails.medium.url} alt={item.snippet.thumbnails.title}/>
-                </div>
-            </div>
-          )
+          if (item.id && item.id.videoId){
+            return (
+              <div className="itemcard" 
+                  onClick={()=>this.props.loadModal("ORDER_MODAL",{
+                  video: {img: item.snippet.thumbnails.medium.url,
+                  link: item.id.videoId,
+                  title: item.snippet.title},
+                  roomid: this.props.currentroom.roomid
+                  })} 
+                  key={idx}>
+                  <div className="information">
+                  <h5>{ item.snippet.title }</h5>
+                  <p className="info">{ item.snippet.channelTitle }{" | "}{ item.snippet.publishedAt }
+                  </p>
+                  <p className="description">{ item.snippet.description }</p>
+                  </div>
+                  <div className="thumbnail">
+                  <img src={item.snippet.thumbnails.medium.url} alt={item.snippet.thumbnails.title}/>
+                  </div>
+              </div>
+            )
+          }else{
+            return
+          }
         })
       }
       if (this.state.lyriclist && this.state.lyriclist.length > 0){
@@ -75,7 +79,8 @@ class Clientsearch extends Component {
           return (
             <div className="lyriccard" 
                 onClick={()=>this.props.loadModal("LYRIC_MODAL",{
-                  link: lyric.link
+                  link: lyric.link,
+                  roomid: this.props.currentroom.roomid
                 })} 
                 key={idx}>
                 <div className="information">
@@ -98,8 +103,8 @@ class Clientsearch extends Component {
             </div>
             <form className="searchbar-input" onSubmit={this.submitSearch()}>
                 <div className="formgroup">
-                    <input type="text" name="keywords" placeholder="Search Keyword" value={this.state.keywords} onChange={this.keywordsChange()}/>
-                    <small>Search for artist, song etc.</small>
+                    <input type="text" name="keywords" placeholder="Search for artist, song etc." value={this.state.keywords} onChange={this.keywordsChange()}/>
+                    <small>Try adding KTV, 伴奏... to keyword</small>
                 </div>
             </form>
             

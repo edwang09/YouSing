@@ -20,8 +20,9 @@ class Host extends Component {
         audiomuted : true,
         socket:"off",
         changeroom:"",
-        header: true,
-        lyric: true
+        headerShow: true,
+        lyricShow: true,
+        lyric:"No lyric to show"
     };
   }
   componentWillMount() {
@@ -108,6 +109,10 @@ class Host extends Component {
               this.setState({currentroom:result.data})
             }
             break;
+          case "lyric":
+              console.log(result)
+                this.setState({lyric:result.data})
+              break;
           default:
             break;
         }
@@ -129,7 +134,11 @@ class Host extends Component {
       }).then(res=>{
         console.log("get order:")
         console.log(res.data)
-        this.setState({currentroom : res.data})
+        this.setState({
+          currentroom : res.data,
+          videomuted:(res.data.current ? res.data.current.type !== "original" : true),
+          audiomuted:(res.data.current ? res.data.current.type !== "accompany" : true)
+         })
       }).catch(err=>{
         console.log(err)
       })
@@ -138,10 +147,10 @@ class Host extends Component {
     this.waitReady = setInterval(()=>{
       console.log("wait to start audio")
       if (this.state.audioplayerReady){
-        console.log("start audio")
-        this.setState({videoplaying:true, videomuted:true})
+        console.log(this.state.currentroom.current)
+        this.setState({videoplaying:true, videomuted:(this.state.currentroom.current ? this.state.currentroom.current.type !== "original" : true) })
         setTimeout(()=>{
-            this.setState({audioplaying:true, audiomuted:false})
+            this.setState({audioplaying:true, audiomuted:(this.state.currentroom.current ? this.state.currentroom.current.type !== "accompany" : true)})
             this.audioplayer.current.seekTo(0)
             }, 468 )
         
@@ -159,9 +168,16 @@ class Host extends Component {
       roomid: this.state.roomid
     }).then(res=>{
         console.log(res.data)
-        this.setState({currentroom:{...this.state.currentroom, current: {link:"placeholder"}}, videoplaying:false, videomuted:false,audioplaying:false, audiomuted:false  })
-        setTimeout(() => this.setState({ currentroom : res.data, videoplaying:true, videomuted:true }),300)
-        setTimeout(() => this.setState({ audioplaying:true, audiomuted:false }),768)
+        this.setState({currentroom:{...this.state.currentroom, current: {link:"placeholder"}}, videoplaying:false, videomuted:true,audioplaying:false, audiomuted:true  })
+        setTimeout(() => this.setState({ 
+          currentroom : res.data, 
+          // videoplaying:true, 
+          // videomuted:(res.data.current ? res.data.current.type !== "original" : true) 
+        }),300)
+        // setTimeout(() => this.setState({ 
+          // audioplaying:true, 
+          // audiomuted:(res.data.current ? res.data.current.type !== "accompany" : true)
+        //  }),768)
     }).catch(err=>console.log(err))
   }
   playerError = ()=>e =>{
@@ -182,22 +198,15 @@ class Host extends Component {
             }
             {(this.state.currentroom && this.state.currentroom.current && this.state.currentroom.current.link && this.state.currentroom.current.link!=="placeholder") && 
                 <div>
-                    <div className={classNames("header",{"header-show":this.state.header})}>
+                    <div className={classNames("header",{"header-show":this.state.headerShow})}>
                         <p><b>Socket : </b>{this.state.socket}</p>
                         <p><b>clientID : </b>{this.state.clientID}</p>
                         <p><b>Sound : </b>{this.state.audiomuted && "audio muted"}{this.state.videomuted && "video muted"}</p>
                         <p><b>Current Room : </b>{this.state.currentroom.roomid}</p>
                         <p><b>Next Song : </b>{this.state.currentroom.queue.length > 0 ? this.state.currentroom.queue[0].title : "Please order"}</p>
                     </div>
-                    <div className={classNames("lyric",{"lyric-show":this.state.lyric})}>
-                        <h5>Lyric Part</h5>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque architecto consequuntur eaque corrupti assumenda fugiat sed? Placeat voluptatum ex, aspernatur hic expedita adipisci dicta cumque velit molestiae corrupti sequi nisi.</p>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque architecto consequuntur eaque corrupti assumenda fugiat sed? Placeat voluptatum ex, aspernatur hic expedita adipisci dicta cumque velit molestiae corrupti sequi nisi.</p>
-
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque architecto consequuntur eaque corrupti assumenda fugiat sed? Placeat voluptatum ex, aspernatur hic expedita adipisci dicta cumque velit molestiae corrupti sequi nisi.</p>
-
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque architecto consequuntur eaque corrupti assumenda fugiat sed? Placeat voluptatum ex, aspernatur hic expedita adipisci dicta cumque velit molestiae corrupti sequi nisi.</p>
-
+                    <div className={classNames("lyric",{"lyric-show":this.state.lyricShow})}>
+                        <pre>{this.state.lyric}</pre>
                     </div>
                     <ReactPlayer className="videocontainer" width="99vw" height="99.6vh" url={"https://www.youtube.com/watch?v="+this.state.currentroom.current.link} 
                         playing = {this.state.videoplaying}

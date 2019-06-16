@@ -18,10 +18,11 @@ class Ordermodal extends Component {
   onClose = () => e => {
     this.props.hideModal();
   };
-  makeOrder=()=>e=>{
+  makeOrder=(type)=>e=>{
       Axios.post('/api/karaokes/order',{
         roomid: this.state.roomid,
-        order:this.state.video
+        order:{...this.state.video,type},
+        type:type
     }).then(res=>{
         console.log(res)
     }).catch(err=>{
@@ -45,8 +46,11 @@ class Ordermodal extends Component {
         </div>
         <hr />
         <div className="actions">
-          <button className="button secondary" onClick={this.makeOrder()}>
-            Make order
+          <button className="button secondary" onClick={this.makeOrder("original")}>
+            Order
+          </button>
+          <button className="button secondary" onClick={this.makeOrder("accompany")}>
+            Order with Vocal Removal
           </button>
           <button  className="button" onClick={this.onClose()}>
             Close

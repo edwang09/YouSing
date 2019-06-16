@@ -9,6 +9,7 @@ class Clientcurrent extends Component {
   render() {
     const {currentroom ,clientID, socket}=this.props
     let QueueRender 
+    let DownloadQueueRender 
 
     if (currentroom &&  currentroom.queue){
       QueueRender = currentroom.queue.map((item, idx)=>{
@@ -19,6 +20,15 @@ class Clientcurrent extends Component {
             </div>
             <div className="information">{item.title}</div>
         </div>
+        )
+      })
+    }
+    if (currentroom &&  currentroom.downloadqueue){
+      DownloadQueueRender = currentroom.downloadqueue.map((item, idx)=>{
+        return (
+          <li className="itemcard" key={idx}>
+            <small>{item.title}</small>
+          </li>
         )
       })
     }
@@ -37,6 +47,10 @@ class Clientcurrent extends Component {
                 <h4>{currentroom.current.title}</h4>
               </div>
           </div>
+        </div>
+        <div className="downloadqueue">
+          <h4>Downloading: </h4>
+          <ul>{DownloadQueueRender}</ul>
         </div>
         <div className="queue">
           <h4>Queue: </h4>

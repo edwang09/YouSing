@@ -18,7 +18,8 @@ class Lyricmodal extends Component {
         }).then(res=>{
             this.setState({
                 link:this.props.modal.options.link,
-                lyric: res.data.lyric
+                lyric: res.data.lyric,
+                roomid:this.props.modal.options.roomid,
             });
         }).catch(err=>{
             console.log(err)
@@ -28,9 +29,14 @@ class Lyricmodal extends Component {
   onClose = () => e => {
     this.props.hideModal();
   };
-  makeOrder=()=>e=>{
-      
-    this.props.hideModal();
+  pushLyric=()=>e=>{
+    Axios.post('/api/karaokes/pushlyric',{
+      lyric: this.state.lyric,
+      roomid: this.state.roomid
+    }).then(res=>{
+    }).catch(err=>{
+        console.log(err)
+    })
   }
   render() {
     return (
@@ -40,7 +46,7 @@ class Lyricmodal extends Component {
         </pre>
         <hr />
         <div className="actions">
-          <button className="button secondary" onClick={this.makeOrder()}>
+          <button className="button secondary" onClick={this.pushLyric()}>
             Add to screen
           </button>
           <button  className="button" onClick={this.onClose()}>

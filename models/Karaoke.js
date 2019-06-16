@@ -13,6 +13,9 @@ const KaraokeSchema = new Schema({
             },
             img: {
               type: "string"
+            },
+            type: {
+              type: "string"
             }
           }
     },
@@ -28,6 +31,29 @@ const KaraokeSchema = new Schema({
               type: "string"
             },
             img: {
+              type: "string"
+            },
+            type: {
+              type: "string"
+            }
+          }
+        }
+    },
+    downloadqueue: {
+        type: "array",
+        items: {
+          type: "object",
+          properties: {
+            link: {
+              type: "string"
+            },
+            title: {
+              type: "string"
+            },
+            img: {
+              type: "string"
+            },
+            type: {
               type: "string"
             }
           }
