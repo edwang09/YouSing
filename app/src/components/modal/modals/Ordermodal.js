@@ -47,10 +47,10 @@ class Ordermodal extends Component {
         <hr />
         <div className="actions">
           <button className="button secondary" onClick={this.makeOrder("original")}>
-            Order
+            Order original
           </button>
           <button className="button secondary" onClick={this.makeOrder("accompany")}>
-            Order with Vocal Removal
+            Order accompany
           </button>
           <button  className="button" onClick={this.onClose()}>
             Close

@@ -159,17 +159,33 @@
             display: flex;
             align-items:center;
             justify-content: space-between;
-            
-            .back-icon{
-                color: #555;
-                font-size: 200%;
-                padding: 0 10px;
+            flex-wrap: wrap;
+            .searchbar-input{
+                flex-basis: 400px;
+                flex-shrink: 1;
+                flex-grow: 1;
+                display: flex;
+                align-items:center;
+                justify-content: space-between;
+                .back-icon{
+                    display: inline-block;
+                    color: #555;
+                    font-size: 200%;
+                    padding: 0 10px;
+                }
             }
-            .search-lyric, .search-song{
-                display: block;
-                color: white;
-                margin-right: 5px;
-
+            .search-button{
+                flex-grow: 1;
+                display: flex;
+                align-items:center;
+                justify-content: space-around;
+                .search-lyric, .search-song{
+                    display: block;
+                    color: white;
+                    font-size: 75%;
+                    padding: .5rem;
+                    margin-right: 2px;
+                }
             }
             .search-song{
                 background-color: $brand-color;
@@ -186,6 +202,27 @@
                 }
             }
             
+        }
+        .search-keywords{
+            font-size: 80%;
+            color: #666;
+            padding: 1rem;
+            hr{
+              margin: .3rem 0;
+            }
+            .keywords{
+                display:flex; 
+                div{
+                    padding: .3rem .5rem;
+                    border-radius: .5rem;
+                    border: 1px solid $brand-color;
+                    // background-color: aqua;
+                    color: $brand-color;
+                    margin-right: 1rem;
+                    cursor: pointer;
+                    
+                }
+            }
         }
         .searchresult{
             .itemcard{
@@ -388,12 +425,12 @@
             width: 54vw;
             overflow: scroll;
             height: 99vh;
-            padding: 2rem;
+            padding: 1rem;
             z-index:0;
             &.searchbar-open{
                 width: 55vw;
             }
-            .back-icon{
+            .search .search-head .searchbar-input .back-icon{
                display: none; 
             }
         }

@@ -188,7 +188,7 @@ class Host extends Component {
     return (
         <div className="karaoke-host">
             {this.state.currentroom &&
-            <div className={classNames("header",{"header-show":this.state.header})}>
+            <div className={classNames("header",{"header-show":this.state.headerShow})}>
                 <p><b>Socket : </b>{this.state.socket}</p>
                 <p><b>clientID : </b>{this.state.clientID}</p>
                 <p><b>Sound : </b>{this.state.audiomuted && "audio muted"}{this.state.videomuted && "video muted"}</p>
@@ -198,13 +198,13 @@ class Host extends Component {
             }
             {(this.state.currentroom && this.state.currentroom.current && this.state.currentroom.current.link && this.state.currentroom.current.link!=="placeholder") && 
                 <div>
-                    <div className={classNames("header",{"header-show":this.state.headerShow})}>
+                    {/* <div className={classNames("header",{"header-show":this.state.headerShow})}>
                         <p><b>Socket : </b>{this.state.socket}</p>
                         <p><b>clientID : </b>{this.state.clientID}</p>
                         <p><b>Sound : </b>{this.state.audiomuted && "audio muted"}{this.state.videomuted && "video muted"}</p>
                         <p><b>Current Room : </b>{this.state.currentroom.roomid}</p>
                         <p><b>Next Song : </b>{this.state.currentroom.queue.length > 0 ? this.state.currentroom.queue[0].title : "Please order"}</p>
-                    </div>
+                    </div> */}
                     <div className={classNames("lyric",{"lyric-show":this.state.lyricShow})}>
                         <pre>{this.state.lyric}</pre>
                     </div>

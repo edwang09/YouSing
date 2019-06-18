@@ -10,7 +10,13 @@ class Clientsearch extends Component {
         }
     }
     keywordsChange = () => e =>{
-    this.setState({keywords : e.target.value})
+      this.setState({keywords : e.target.value})
+      if (e.target.value === ""){
+        this.setState({
+          items: null,
+          lyriclist: null
+        })
+      }
     }
     submitSearch = () => e =>{
         e.preventDefault()
@@ -41,6 +47,11 @@ class Clientsearch extends Component {
           })
       }).catch(err=>{
           console.log(err)
+      })
+    }
+    addKeyword=()=>e =>{
+      this.setState({
+        keywords:this.state.keywords + " " +e.target.innerHTML
       })
     }
   render() {
@@ -98,19 +109,31 @@ class Clientsearch extends Component {
     return (
       <div className="search">
           <div className="search-head">
-            <div className="back-icon" onClick={this.props.closesearchbar()}>
-                <i className="fas fa-chevron-left"></i>
-            </div>
             <form className="searchbar-input" onSubmit={this.submitSearch()}>
+                <div className="back-icon" onClick={this.props.closesearchbar()}>
+                    <i className="fas fa-chevron-left"></i>
+                </div>
                 <div className="formgroup">
-                    <input type="text" name="keywords" placeholder="Search for artist, song etc." value={this.state.keywords} onChange={this.keywordsChange()}/>
+                    <input type="search" name="keywords" placeholder="Search for artist, song etc." value={this.state.keywords} onChange={this.keywordsChange()}/>
                     <small>Try adding KTV, 伴奏... to keyword</small>
                 </div>
             </form>
-            
-                <button className="search-lyric"  onClick={this.lyricSearch()}>Lyric</button>
-                <button className="search-song"  onClick={this.submitSearch()}>Song</button>
+            <div className="search-button">
+                <button className="search-lyric"  onClick={this.lyricSearch()}>Search Lyric</button>
+                <button className="search-song"  onClick={this.submitSearch()}>Search Song</button>
+            </div>
           </div>
+          <div className="search-keywords">
+            <div>Frequently Used Keywords: </div>
+            <hr/>
+            <div className="keywords">
+              <div onClick = {this.addKeyword()}>KTV</div>
+              <div onClick = {this.addKeyword()}>karaoke</div>
+              <div onClick = {this.addKeyword()}>伴奏</div>
+              <div onClick = {this.addKeyword()}>カラオケ</div>
+            </div>
+          </div>
+          
         <div className="searchresult">
             {(ItemsRender && !LyricRender) && ItemsRender}
             {(!ItemsRender && LyricRender) && LyricRender}

@@ -1005,18 +1005,56 @@ section.yourphoneisremote .catch button {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
-.karaoke-client .content .searchbar .search .search-head .back-icon {
+.karaoke-client .content .searchbar .search .search-head .searchbar-input {
+  -ms-flex-preferred-size: 400px;
+      flex-basis: 400px;
+  -ms-flex-negative: 1;
+      flex-shrink: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.karaoke-client .content .searchbar .search .search-head .searchbar-input .back-icon {
+  display: inline-block;
   color: #555;
   font-size: 200%;
   padding: 0 10px;
 }
 
-.karaoke-client .content .searchbar .search .search-head .search-lyric, .karaoke-client .content .searchbar .search .search-head .search-song {
+.karaoke-client .content .searchbar .search .search-head .search-button {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.karaoke-client .content .searchbar .search .search-head .search-button .search-lyric, .karaoke-client .content .searchbar .search .search-head .search-button .search-song {
   display: block;
   color: white;
-  margin-right: 5px;
+  font-size: 75%;
+  padding: .5rem;
+  margin-right: 2px;
 }
 
 .karaoke-client .content .searchbar .search .search-head .search-song {
@@ -1035,6 +1073,31 @@ section.yourphoneisremote .catch button {
   font-weight: lighter;
   color: #888;
   font-size: 75%;
+}
+
+.karaoke-client .content .searchbar .search .search-keywords {
+  font-size: 80%;
+  color: #666;
+  padding: 1rem;
+}
+
+.karaoke-client .content .searchbar .search .search-keywords hr {
+  margin: .3rem 0;
+}
+
+.karaoke-client .content .searchbar .search .search-keywords .keywords {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.karaoke-client .content .searchbar .search .search-keywords .keywords div {
+  padding: .3rem .5rem;
+  border-radius: .5rem;
+  border: 1px solid #720E71;
+  color: #720E71;
+  margin-right: 1rem;
+  cursor: pointer;
 }
 
 .karaoke-client .content .searchbar .search .searchresult .itemcard {
@@ -1251,13 +1314,13 @@ section.yourphoneisremote .catch button {
     width: 54vw;
     overflow: scroll;
     height: 99vh;
-    padding: 2rem;
+    padding: 1rem;
     z-index: 0;
   }
   .karaoke-client .content .searchbar.searchbar-open {
     width: 55vw;
   }
-  .karaoke-client .content .searchbar .back-icon {
+  .karaoke-client .content .searchbar .search .search-head .searchbar-input .back-icon {
     display: none;
   }
   .karaoke-client .content .control {
@@ -1457,6 +1520,7 @@ section.yourphoneisremote .catch button {
   display: flex;
   -ms-flex-pack: distribute;
       justify-content: space-around;
+  font-size: 80%;
 }
 
 .modal .content .dialog .itemcard {
@@ -1645,7 +1709,7 @@ form .formgroup label {
   margin-right: .5rem;
 }
 
-form .formgroup input[type=text], form .formgroup input[type=password], form .formgroup select, form .formgroup textarea {
+form .formgroup input[type=text], form .formgroup input[type=password], form .formgroup input[type=search], form .formgroup select, form .formgroup textarea {
   display: block;
   padding: 0.5rem;
   border: 1px solid #ccc;
@@ -1688,7 +1752,7 @@ form .formgroup--inline label {
   margin-right: .5rem;
 }
 
-form .formgroup--inline input[type=text], form .formgroup--inline input[type=password], form .formgroup--inline select, form .formgroup--inline textarea {
+form .formgroup--inline input[type=text], form .formgroup--inline input[type=password], form .formgroup--inline input[type=search], form .formgroup--inline select, form .formgroup--inline textarea {
   display: inline;
   padding: 0.5rem;
   border: 1px solid #ccc;
@@ -1719,13 +1783,17 @@ form .formgroup--inline .invalid-feedback {
   color: red;
 }
 
-form input[type=text] {
+form input[type=text], form input[type=search] {
   width: 100%;
 }
 
 form button, form input[type=submit] {
   display: block;
   margin: 16px 0;
+}
+
+form input[type=search]::-webkit-search-cancel-button {
+  -webkit-appearance: searchfield-cancel-button;
 }
 
 table {
