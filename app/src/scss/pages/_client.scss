@@ -155,76 +155,83 @@
         }
         
     .search{
-        .search-head{
-            display: flex;
-            align-items:center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            .searchbar-input{
-                flex-basis: 400px;
-                flex-shrink: 1;
-                flex-grow: 1;
+            .search-head{
                 display: flex;
                 align-items:center;
                 justify-content: space-between;
-                .back-icon{
-                    display: inline-block;
-                    color: #555;
-                    font-size: 200%;
-                    padding: 0 10px;
+                flex-wrap: wrap;
+                .searchbar-input{
+                    flex-basis: 400px;
+                    flex-shrink: 1;
+                    flex-grow: 1;
+                    display: flex;
+                    align-items:center;
+                    justify-content: space-between;
+                    .back-icon{
+                        display: inline-block;
+                        color: #555;
+                        font-size: 200%;
+                        padding: 0 10px;
+                    }
                 }
-            }
-            .search-button{
-                flex-grow: 1;
-                display: flex;
-                align-items:center;
-                justify-content: space-around;
-                .search-lyric, .search-song{
-                    display: block;
-                    color: white;
-                    font-size: 75%;
-                    padding: .5rem;
-                    margin-right: 2px;
+                .search-button{
+                    flex-grow: 1;
+                    display: flex;
+                    align-items:center;
+                    justify-content: space-around;
+                    .search-lyric, .search-karaoke, .search-song{
+                        display: block;
+                        color: white;
+                        font-size: 75%;
+                        padding: .5rem;
+                        margin-right: 2px;
+                    }
                 }
-            }
-            .search-song{
-                background-color: $brand-color;
-            }
-            .searchbar-input{
-                width:100%;
-                input{
-                    margin-bottom: 0;
+                .search-karaoke{
+                    background-color: $brand-color;
                 }
-                small{
-                    font-weight: lighter;
-                    color:#888;
-                    font-size:75%;
+                .search-song{
+                    background-color: blue;
                 }
-            }
-            
-        }
-        .search-keywords{
-            font-size: 80%;
-            color: #666;
-            padding: 1rem;
-            hr{
-              margin: .3rem 0;
-            }
-            .keywords{
-                display:flex; 
-                div{
-                    padding: .3rem .5rem;
-                    border-radius: .5rem;
-                    border: 1px solid $brand-color;
-                    // background-color: aqua;
-                    color: $brand-color;
-                    margin-right: 1rem;
-                    cursor: pointer;
-                    
+                .searchbar-input{
+                    width:100%;
+                    input{
+                        margin-bottom: 0;
+                    }
+                    small{
+                        font-weight: lighter;
+                        color:#888;
+                        font-size:75%;
+                    }
                 }
+                
             }
-        }
+
+        
         .searchresult{
+            .search-keywords{
+                font-size: 80%;
+                color: #666;
+                padding: 1rem;
+                hr{
+                margin: .3rem 0;
+                }
+                .keywords{
+                    display:flex; 
+                    flex-wrap: wrap;
+                    div{
+                        padding: .3rem .5rem;
+                        border-radius: .5rem;
+                        border: 1px solid $brand-color;
+                        // background-color: aqua;
+                        color: $brand-color;
+                        margin-right: 1rem;
+                        margin-bottom: .5rem;
+                        cursor: pointer;
+                        
+                    }
+                }
+            }
             .itemcard{
                 border: 1px solid #ddd;
                 border-radius: 5px;
@@ -430,7 +437,7 @@
             &.searchbar-open{
                 width: 55vw;
             }
-            .search .search-head .searchbar-input .back-icon{
+            .search  .search-head .searchbar-input .back-icon{
                display: none; 
             }
         }

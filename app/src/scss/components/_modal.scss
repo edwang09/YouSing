@@ -33,7 +33,7 @@
         position: relative;
         background-color: #fefefe;
         outline: 0;
-        width: 80%;
+        width: 98%;
         max-width: 500px;
         margin: auto;
         border: 1px solid #888;
@@ -58,6 +58,10 @@
           display:flex;
           justify-content: space-around;
           font-size: 80%;
+          button{
+            display: inline-block;
+            padding:.5rem;
+          }
         }
         .itemcard{
           border: 1px solid #ededed;

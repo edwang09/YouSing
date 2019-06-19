@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const path = require("path");
 const karaokes = require("./routes/karaokes");
+const ktv = require("./routes/ktv");
 const lyric = require("./routes/lyric");
 const uuidv1 = require('uuid/v1');
 const http = require('http');
@@ -90,6 +91,7 @@ app.use(function(req, res, next) {
 });
 
 app.use("/api/karaokes", karaokes);
+app.use("/api/ktv", ktv);
 app.use("/api/lyric", lyric);
 if (process.env.NODE_ENV === "production") {
   // Set static folder

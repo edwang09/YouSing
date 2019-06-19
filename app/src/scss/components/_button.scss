@@ -43,7 +43,14 @@ button{
             background-color: lighten(rgb(223, 117, 20),10%);
         }
     }
-
+    &.primary {
+        @include button;
+        background-color: $brand-color; /* this is a light blue */
+        &:hover{
+            transform: scale(1.03);
+            background-color: lighten($brand-color,10%);
+        }
+    }
     &.secondary {
         @include button;
         background-color: rgb(66, 184, 221); /* this is a light blue */

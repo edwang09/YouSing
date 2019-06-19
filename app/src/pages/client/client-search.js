@@ -1,7 +1,16 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
 import axios from 'axios'
-
+const PRESETLIST = [
+  "周杰伦",
+  "林俊杰",
+  "林宥嘉",
+  "陈奕迅",
+  "张信哲",
+  "孙燕姿",
+  "薛之谦",
+  "田馥甄"
+]
 class Clientsearch extends Component {
     constructor(props) {
         super(props);
@@ -9,6 +18,7 @@ class Clientsearch extends Component {
           keywords:""
         }
     }
+
     keywordsChange = () => e =>{
       this.setState({keywords : e.target.value})
       if (e.target.value === ""){
@@ -21,7 +31,7 @@ class Clientsearch extends Component {
     submitSearch = () => e =>{
         e.preventDefault()
         axios.get("https://www.googleapis.com/youtube/v3/search?key=AIzaSyACXG0BY_of5_4SHtgG8H9bVrHrUVnfX24&type=video&part=snippet&maxResults=25&q="+ this.state.keywords).then(res=>{
-        console.log(res.data)  
+        // console.log(res.data)  
         this.setState({
             nextPageToken:res.data.nextPageToken,
             prevPageToken :res.data.prevPageToken,
@@ -33,6 +43,21 @@ class Clientsearch extends Component {
             console.log(err)
         })
     }
+    karaokeSearch = () => e =>{
+      e.preventDefault()
+      axios.get("https://www.googleapis.com/youtube/v3/search?key=AIzaSyACXG0BY_of5_4SHtgG8H9bVrHrUVnfX24&type=video&part=snippet&maxResults=25&q="+ this.state.keywords+ " KTV 伴奏 karaoke").then(res=>{
+      // console.log(res.data)  
+      this.setState({
+          nextPageToken:res.data.nextPageToken,
+          prevPageToken :res.data.prevPageToken,
+          items: res.data.items,
+          lyriclist: null
+          })
+          console.log(res.data.items)
+      }).catch(err=>{
+          console.log(err)
+      })
+  }
     lyricSearch = () => e =>{
       e.preventDefault()
       axios.post("/api/lyric/search", {
@@ -49,10 +74,22 @@ class Clientsearch extends Component {
           console.log(err)
       })
     }
-    addKeyword=()=>e =>{
+    presetWords=()=>e =>{
       this.setState({
-        keywords:this.state.keywords + " " +e.target.innerHTML
+        keywords:e.target.innerHTML
       })
+      axios.get("https://www.googleapis.com/youtube/v3/search?key=AIzaSyACXG0BY_of5_4SHtgG8H9bVrHrUVnfX24&type=video&part=snippet&maxResults=25&q="+ e.target.innerHTML + " KTV 伴奏 karaoke").then(res=>{
+        // console.log(res.data)  
+        this.setState({
+            nextPageToken:res.data.nextPageToken,
+            prevPageToken :res.data.prevPageToken,
+            items: res.data.items,
+            lyriclist: null
+            })
+            console.log(res.data.items)
+        }).catch(err=>{
+            console.log(err)
+        })
     }
   render() {
       let ItemsRender
@@ -106,6 +143,14 @@ class Clientsearch extends Component {
           )
         })
       }
+      const PresetRender = PRESETLIST.map((word, idx)=>{
+        return (
+          <div onClick={this.presetWords()} 
+              key={idx}>{word}
+          </div>
+        )
+      })
+
     return (
       <div className="search">
           <div className="search-head">
@@ -120,23 +165,21 @@ class Clientsearch extends Component {
             </form>
             <div className="search-button">
                 <button className="search-lyric"  onClick={this.lyricSearch()}>Search Lyric</button>
+                <button className="search-karaoke"  onClick={this.karaokeSearch()}>Search karaoke</button>
                 <button className="search-song"  onClick={this.submitSearch()}>Search Song</button>
             </div>
           </div>
+        <div className="searchresult">
+            {(ItemsRender && !LyricRender) && ItemsRender}
+            {(!ItemsRender && LyricRender) && LyricRender}
+            {(!ItemsRender && !LyricRender) && 
           <div className="search-keywords">
             <div>Frequently Used Keywords: </div>
             <hr/>
             <div className="keywords">
-              <div onClick = {this.addKeyword()}>KTV</div>
-              <div onClick = {this.addKeyword()}>karaoke</div>
-              <div onClick = {this.addKeyword()}>伴奏</div>
-              <div onClick = {this.addKeyword()}>カラオケ</div>
+              {PresetRender}
             </div>
-          </div>
-          
-        <div className="searchresult">
-            {(ItemsRender && !LyricRender) && ItemsRender}
-            {(!ItemsRender && LyricRender) && LyricRender}
+          </div>}
         </div>
       </div>
     )

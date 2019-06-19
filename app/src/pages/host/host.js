@@ -47,7 +47,10 @@ class Host extends Component {
       clearInterval(this.waitReady)
     }
   }
-  componentDidMount() {
+  componentDidMount(){
+    this.connectSocket()
+  }
+  connectSocket() {
     this.connection = new WebSocket((process.env.NODE_ENV === "production"? "wss://yousing.herokuapp.com" : "ws://localhost:8080"));
     this.connection.onopen = evt => { 
       this.setState({socket: "on"})
@@ -120,6 +123,7 @@ class Host extends Component {
     };
     this.connection.onclose = evt => {
       clearInterval(this.keepAlive)
+      this.connectSocket()
       this.setState({socket: "off"})
     };
     this.connection.onerror = evt => { 
@@ -146,7 +150,7 @@ class Host extends Component {
   waitForReady = (e) =>{
     this.waitReady = setInterval(()=>{
       console.log("wait to start audio")
-      if (this.state.audioplayerReady){
+      if (this.state.audioplayerReady && this.audioplayer.current){
         console.log(this.state.currentroom.current)
         this.setState({videoplaying:true, videomuted:(this.state.currentroom.current ? this.state.currentroom.current.type !== "original" : true) })
         setTimeout(()=>{
@@ -181,8 +185,8 @@ class Host extends Component {
     }).catch(err=>console.log(err))
   }
   playerError = ()=>e =>{
-    console.log("playerError")
     console.log(e)
+    this.next()(null)
   }
   render() {
     return (

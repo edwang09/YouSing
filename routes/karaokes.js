@@ -4,8 +4,11 @@ const Karaoke = require("../models/Karaoke");
 const fs = require('fs');
 const soxPath = require("../config/keys").soxPath;
 const sox = require('sox-stream');
-
+var ytdl = require("./node_modules/ytdl-core");
+var ffmpeg = require("fluent-ffmpeg");
 const ffmpegPath = require("../config/keys").ffmpegPath;
+ffmpeg.setFfmpegPath(ffmpegPath)
+
 const YoutubeMp3Downloader = require("../youtube-downloader");
 
 
@@ -91,6 +94,7 @@ router.post("/pushlyric", (req, res) => {
     res.send({success:true})
 });
 
+
 //@route   POST api/karaoke/order
 //@desc    order karaoke host
 //@access  Public
@@ -99,52 +103,83 @@ router.post("/order", (req, res) => {
     const order = req.body.order;
     const link = order.link;
     const path = "karaoke/" + link + ".mp3"
+    const transform = sox({
+        soxPath : soxPath,
+        global: {
+            buffer: 4096
+        },
+        input: { type: 'mp3' },
+        output: { type: 'mp3' },
+        effects: 'oops'
+    })
     if (!fs.existsSync(path)){
         Karaoke.findOne({roomid:roomid}).then(karaoke => {
             karaoke.downloadqueue.push( order )
             karaoke.save()
             .then(karaoke => {
                 sendSocket("push",karaoke,roomid)
-                const YD = new YoutubeMp3Downloader({
-                    "ffmpegPath": ffmpegPath,        // Where is the FFmpeg binary located?
-                    "outputPath": "./karaoke",    // Where should the downloaded and encoded files be stored?
-                    "youtubeVideoQuality": "highest",       // What video quality should be used?
-                    "queueParallelism": 2,                  // How many parallel downloads/encodes should be started?
-                    "progressTimeout": 2000                 // How long should be the interval of the progress reports
+                const videoUrl = "http://www.youtube.com/watch?v=" + link
+                ytdl.getInfo(videoUrl, function(err, info){
+                    if (err) {
+                        console.log(err.message, resultObj);
+                    } else {
+                        //Stream setup
+                        var stream = ytdl.downloadFromInfo(info, {
+                            quality: "highest",
+                            requestOptions: { maxRedirects: 5 }
+                        });
+                        stream.on("response", function(httpResponse) {
+                            //Start encoding
+                            var proc = new ffmpeg({
+                                source: stream
+                            })
+                            .audioBitrate(info.formats[0].audioBitrate)
+                            .withAudioCodec("libmp3lame")
+                            .toFormat("mp3")
+                            .outputOptions("-id3v2_version", "4")
+                            .outputOptions("-metadata", "title=" + "title")
+                            .outputOptions("-metadata", "artist=" + "artist")
+                            .on("error", function(err) {
+                                Karaoke.findOne({roomid:roomid}).then(karaoke => {
+                                    const newdownloadqueue = karaoke.downloadqueue.filter( list => list.link !== order.link  )
+                                    karaoke.downloadqueue=newdownloadqueue
+                                    karaoke.save()
+                                    sendSocket("push",karaoke,roomid)
+                                    res.json(karaoke)
+                                });
+                            })
+                            .on("end", function() {
+                                Karaoke.findOne({roomid:roomid}).then(karaoke => {
+                                    const newdownloadqueue = karaoke.downloadqueue.filter( list => list.link !== order.link  )
+                                    karaoke.downloadqueue=newdownloadqueue
+                                    if (karaoke.current.link === "placeholder"){
+                                        karaoke.current = order
+                                        karaoke.save()
+                                        .then(karaoke => {
+                                            sendSocket("push",karaoke,roomid)
+                                            res.json(karaoke)
+                                        })
+                                        .catch(err=>{
+                                            console.log(err)
+                                        })
+                                    }else{
+                                        karaoke.queue.push( order )
+                                        karaoke.save()
+                                        .then(karaoke => {
+                                            sendSocket("push",karaoke,roomid)
+                                            res.json(karaoke)
+                                        })
+                                        .catch(err=>{
+                                            console.log(err)
+                                        })
+                                    }
+                                });
+                            })
+                            .pipe(transform)
+                            .pipe(fs.createWriteStream("./karaoke/" + link +".mp3"))
+                        });
+                    }
                 });
-                YD.on("error", function(err, data) {
-                    console.log(err)
-                });
-                YD.on("finished", function(err, data) {
-                    console.log(order)
-                    Karaoke.findOne({roomid:roomid}).then(karaoke => {
-                        const newdownloadqueue = karaoke.downloadqueue.filter( list => list.link !== order.link  )
-                        karaoke.downloadqueue=newdownloadqueue
-                        if (karaoke.current.link === "placeholder"){
-                            karaoke.current = order
-                            karaoke.save()
-                            .then(karaoke => {
-                                sendSocket("push",karaoke,roomid)
-                                res.json(karaoke)
-                            })
-                            .catch(err=>{
-                                console.log(err)
-                            })
-                        }else if(data.videoId === link){
-                            karaoke.queue.push( order )
-                            karaoke.save()
-                            .then(karaoke => {
-                                sendSocket("push",karaoke,roomid)
-                                res.json(karaoke)
-                            })
-                            .catch(err=>{
-                                console.log(err)
-                            })
-                        }
-                        
-                    });
-                });
-                YD.download(link,link+".mp3");
             })
             .catch(err=>{
                 console.log(err)
@@ -168,26 +203,16 @@ router.post("/order", (req, res) => {
     }
 });
 
-
-
 //@route   GET api/karaoke/order
 //@desc    order karaoke host
 //@access  Public
 router.get("/audio/:url", (req, res) => {
     const url = req.params.url
     const path = "karaoke/" + url + ".mp3"
-    
     if (fs.existsSync(path)){
-        const transform = sox({
-            soxPath : soxPath,
-            input: { type: 'mp3' },
-            output: { type: 'mp3' },
-            effects: 'oops'
-        })
         fs.createReadStream(path)
-        // .pipe( transform )
         .on("error",e=>{
-            console.log(e)
+            res.end({failed:true})
         })
         .pipe(res);
     }else{
