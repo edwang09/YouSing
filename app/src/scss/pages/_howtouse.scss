@@ -1,0 +1,30 @@
+section.howtouse-back{
+    background: linear-gradient(
+        rgba(#eee , 0), 
+        rgba(#eee, 0)
+      ),url('../assets/sing2.jpg') no-repeat;
+      background-position: center;
+      background-size: cover;
+      padding-bottom: 4rem;
+    .howtouse{
+        max-width: 1200px;
+        margin: auto;
+        background-color: #edededaa;
+        padding: 2rem 4rem;
+        border-radius: .5rem;
+        h3{
+            color: $brand-color;
+        }
+        h5{
+            text-align: center;
+        }
+        img{
+            display: block;
+            margin:2rem auto;
+            
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid #ededed;
+        }
+    }
+}

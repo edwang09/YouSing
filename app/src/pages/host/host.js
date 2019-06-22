@@ -3,6 +3,7 @@ import axios from 'axios'
 import { connect } from "react-redux";
 import PropTypes from 'prop-types'
 import { loadModal } from "../../actions/modalActions";
+import { setKaraoke } from "../../actions/karaokeAction";
 import classNames from 'classnames'
 import ReactPlayer from 'react-player'
 
@@ -26,18 +27,26 @@ class Host extends Component {
     };
   }
   componentWillMount() {
-    // const roomid = Math.floor((Math.random() * 10000000) + 1).toString()
-    const roomid = "9761353"
-    this.setState({roomid:roomid})
-    // axios.post("/api/karaokes/create",{
-    //   roomid: roomid
-    // }).then(res=>{
-    //   if (res.data.roomid){
-    //     console.log("karaoke host created " + res.data.roomid)
-    //     this.setState({roomid:res.data.roomid})
-    //   }
-    // })
-    this.waitForOrder(roomid)
+    let roomid
+    if (localStorage.getItem('roomid') && localStorage.getItem('roomid')!==""){
+      roomid = localStorage.getItem('roomid')
+      this.props.setKaraoke({roomid:roomid})
+      this.setState({roomid:roomid})
+      this.waitForOrder(roomid)
+    }else{
+      roomid = Math.floor((Math.random() * 10000000) + 1).toString()
+      axios.post("/api/karaokes/create",{
+        roomid: roomid
+      }).then(res=>{
+        if (res.data.roomid){
+          console.log("karaoke host created " + res.data.roomid)
+          this.props.setKaraoke({roomid:roomid})
+          this.setState({roomid:roomid})
+          localStorage.setItem('roomid', roomid);
+          this.waitForOrder(roomid)
+        }
+      })
+    }
   } 
   componentWillUnmount(){
     if (this.keepAlive){
@@ -49,6 +58,11 @@ class Host extends Component {
   }
   componentDidMount(){
     this.connectSocket()
+  }
+  destroyRoom = ()=> e =>{
+    this.props.setKaraoke({roomid:""})
+    localStorage.removeItem('roomid');
+    this.history.push("/")
   }
   connectSocket() {
     this.connection = new WebSocket((process.env.NODE_ENV === "production"? "wss://yousing.herokuapp.com" : "ws://localhost:8080"));
@@ -90,16 +104,16 @@ class Host extends Component {
                     // this.audioplayer.current.seekTo(0)
                     break;
                 case "showlyric":
-                    this.setState({lyric:true})
+                    this.setState({lyricShow:true})
                     break;
                 case "hidelyric":
-                    this.setState({lyric:false})
+                    this.setState({lyricShow:false})
                     break;
                 case "showpanel":
-                    this.setState({header:true})
+                    this.setState({headerShow:true})
                     break;
                 case "hidepanel":
-                    this.setState({header:false})
+                    this.setState({headerShow:false})
                     break;
                 default:
                     break;
@@ -144,7 +158,7 @@ class Host extends Component {
           audiomuted:(res.data.current ? res.data.current.type !== "accompany" : true)
          })
       }).catch(err=>{
-        console.log(err)
+        setTimeout(this.waitForOrder,500)
       })
   }
   waitForReady = (e) =>{
@@ -193,22 +207,15 @@ class Host extends Component {
         <div className="karaoke-host">
             {this.state.currentroom &&
             <div className={classNames("header",{"header-show":this.state.headerShow})}>
-                <p><b>Socket : </b>{this.state.socket}</p>
-                <p><b>clientID : </b>{this.state.clientID}</p>
-                <p><b>Sound : </b>{this.state.audiomuted && "audio muted"}{this.state.videomuted && "video muted"}</p>
+                <p><b>Network : </b>{this.state.socket}</p>
+                <p><b>Sound : </b>{this.state.audiomuted && "Original"}{this.state.videomuted && "Vocal removed"}</p>
                 <p><b>Current Room : </b>{this.state.currentroom.roomid}</p>
                 <p><b>Next Song : </b>{this.state.currentroom.queue.length > 0 ? this.state.currentroom.queue[0].title : "Please order"}</p>
+                <a href="/" onClick={this.destroyRoom()}>Destroy room</a>
             </div>
             }
             {(this.state.currentroom && this.state.currentroom.current && this.state.currentroom.current.link && this.state.currentroom.current.link!=="placeholder") && 
                 <div>
-                    {/* <div className={classNames("header",{"header-show":this.state.headerShow})}>
-                        <p><b>Socket : </b>{this.state.socket}</p>
-                        <p><b>clientID : </b>{this.state.clientID}</p>
-                        <p><b>Sound : </b>{this.state.audiomuted && "audio muted"}{this.state.videomuted && "video muted"}</p>
-                        <p><b>Current Room : </b>{this.state.currentroom.roomid}</p>
-                        <p><b>Next Song : </b>{this.state.currentroom.queue.length > 0 ? this.state.currentroom.queue[0].title : "Please order"}</p>
-                    </div> */}
                     <div className={classNames("lyric",{"lyric-show":this.state.lyricShow})}>
                         <pre>{this.state.lyric}</pre>
                     </div>
@@ -233,11 +240,14 @@ class Host extends Component {
   }
 }
 Host.propTypes = {
-  loadModal: PropTypes.func.isRequired
+  loadModal: PropTypes.func.isRequired,
+  setKaraoke: PropTypes.func.isRequired,
 };
+const mapStateToProps = state => ({ karaoke: state.karaoke })
 export default connect(
-  null,
+  mapStateToProps,
   {
     loadModal,
+    setKaraoke
   }
 )(Host);

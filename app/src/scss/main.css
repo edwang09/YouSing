@@ -988,14 +988,29 @@ section.yourphoneisremote .catch button {
   overflow-x: hidden;
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  background-color: #ededed;
+  background-color: #f7f7f7;
 }
 
 .karaoke-client .content .searchbar.searchbar-open {
   width: 100%;
 }
 
+.karaoke-client .content .searchbar.searchbar-open .search .search-head {
+  width: 100vw;
+  padding: .5rem .5rem;
+}
+
 .karaoke-client .content .searchbar .search .search-head {
+  position: fixed;
+  width: 0;
+  right: 0;
+  top: 0;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  background-color: #f7f7f7;
+  -webkit-box-shadow: 0 2px 2px #ddd;
+          box-shadow: 0 2px 2px #ddd;
+  border-radius: .3rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1077,6 +1092,10 @@ section.yourphoneisremote .catch button {
   font-weight: lighter;
   color: #888;
   font-size: 75%;
+}
+
+.karaoke-client .content .searchbar .search .searchresult {
+  margin-top: 8rem;
 }
 
 .karaoke-client .content .searchbar .search .searchresult .search-keywords {
@@ -1251,6 +1270,22 @@ section.yourphoneisremote .catch button {
   text-decoration: underline;
 }
 
+.karaoke-client .entry .buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.karaoke-client .entry .buttons button:nth-child(1) {
+  background-color: blue;
+}
+
+.karaoke-client .entry .buttons button:nth-child(2) {
+  background-color: #720E71;
+}
+
 .karaoke-client .control-button {
   display: none;
   position: fixed;
@@ -1318,14 +1353,18 @@ section.yourphoneisremote .catch button {
     background-color: #ededed;
   }
   .karaoke-client .content .searchbar {
-    width: 54vw;
-    overflow: scroll;
+    width: 55vw;
     height: 99vh;
     padding: 1rem;
+    overflow: scroll;
     z-index: 0;
   }
   .karaoke-client .content .searchbar.searchbar-open {
     width: 55vw;
+  }
+  .karaoke-client .content .searchbar .search .search-head {
+    width: 55vw;
+    padding: .5rem .5rem;
   }
   .karaoke-client .content .searchbar .search .search-head .searchbar-input .back-icon {
     display: none;
@@ -1398,6 +1437,58 @@ section.yourphoneisremote .catch button {
 
 .karaoke-host .lyric.lyric-show {
   display: block;
+}
+
+.faq-back {
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(238, 238, 238, 0)), to(rgba(238, 238, 238, 0))), url("../assets/sing2.jpg") no-repeat;
+  background: linear-gradient(rgba(238, 238, 238, 0), rgba(238, 238, 238, 0)), url("../assets/sing2.jpg") no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding-bottom: 4rem;
+}
+
+.faq-back .faq {
+  max-width: 1200px;
+  margin: auto;
+  background-color: #edededaa;
+  padding: 2rem 4rem;
+  border-radius: .5rem;
+}
+
+.faq-back .faq .faq-card h2 {
+  color: #720E71;
+}
+
+section.howtouse-back {
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(238, 238, 238, 0)), to(rgba(238, 238, 238, 0))), url("../assets/sing2.jpg") no-repeat;
+  background: linear-gradient(rgba(238, 238, 238, 0), rgba(238, 238, 238, 0)), url("../assets/sing2.jpg") no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding-bottom: 4rem;
+}
+
+section.howtouse-back .howtouse {
+  max-width: 1200px;
+  margin: auto;
+  background-color: #edededaa;
+  padding: 2rem 4rem;
+  border-radius: .5rem;
+}
+
+section.howtouse-back .howtouse h3 {
+  color: #720E71;
+}
+
+section.howtouse-back .howtouse h5 {
+  text-align: center;
+}
+
+section.howtouse-back .howtouse img {
+  display: block;
+  margin: 2rem auto;
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid #ededed;
 }
 
 .popup {

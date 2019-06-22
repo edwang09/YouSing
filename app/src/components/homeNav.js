@@ -52,8 +52,8 @@ export default class HomeNav extends Component {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/about">
-                      About
+                    <Link className="nav-link" to="/howtouse">
+                      How to Use
                     </Link>
                   </li>
                   <li className="nav-item">

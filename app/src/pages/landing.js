@@ -13,7 +13,7 @@ export default class Landing extends Component {
           <div className="catch">
             <div className="catch-container">
             <p>Make Home Karaoke Up-to-date with <span className="brand">YouSing</span></p>
-            <button>Start Karaoke</button>
+            <button><Link to="/howtouse">How to use</Link></button>
             </div>
           </div>
         </section>
@@ -25,7 +25,7 @@ export default class Landing extends Component {
               YouSing is an incredible app that allows you to Sing newly released songs with your families or friends at home. As long as the song is available on YouTube, Our processor can simply transform original song into Accompany using OOPS. No more extra expense, no more paying for the subscriptions.
               </p>
             </div>
-            <button>FAQ</button>
+            <button><Link to="/faq">FAQ</Link></button>
           </div>
           <div className="picture">
             <img src={require("../assets/sound.jpg")} alt="sound"/>

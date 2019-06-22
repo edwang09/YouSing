@@ -2,7 +2,7 @@ import { SET_CURRENT_KARAOKE } from "../actions/types";
 import isEmpty from '../utils/isEmpty'
 const initialState = {
   inRoom: false,
-  room: {}
+  roomid: ""
 };
 
 export default function(state = initialState, action) {
@@ -11,7 +11,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         inRoom: !isEmpty(action.payload),
-        room: action.payload
+        roomid: action.payload
       };
     default:
       return state;

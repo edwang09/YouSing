@@ -39,6 +39,9 @@ class Client extends Component {
       })
     }
   }
+  componentWillUnmount(){
+    this.connection.close()
+  }
   closesearchbar = () => e =>{
     this.setState({ searchbarOpen : false })
   }
@@ -49,13 +52,20 @@ class Client extends Component {
   roomidChange = () => e =>{
     this.setState({roomid : e.target.value})
   }
-  roomidSubmit= () => e => {
+  roomidSubmit= (lastroom) => e => {
     e.preventDefault()
-    console.log(this.state.roomid)
+    let roomid
+    if (lastroom){
+      console.log(lastroom)
+      roomid = lastroom
+    }else{
+      console.log(this.state.roomid)
+      roomid = this.state.roomid
+    }
     axios.post("/api/karaokes/room",{
-      roomid:this.state.roomid
+      roomid:roomid
     }).then(res=>{
-      console.log(res)
+      localStorage.setItem('roomid',roomid)
       this.setState({
         currentroom: res.data
       })
@@ -136,7 +146,7 @@ class Client extends Component {
           </div>
           }
           {(!this.state.currentroom || this.state.socket === "off")  &&
-            <Cliententry roomidSubmit={this.roomidSubmit} roomidChange={this.roomidChange} roomid={this.state.roomid}/>
+            <Cliententry roomidSubmit={this.roomidSubmit} lastRoomidSubmit={this.lastRoomidSubmit} roomidChange={this.roomidChange} roomid={this.state.roomid}/>
           }
       </div>
     )

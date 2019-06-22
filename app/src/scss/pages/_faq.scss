@@ -1,0 +1,21 @@
+.faq-back{
+    background: linear-gradient(
+        rgba(#eee , 0), 
+        rgba(#eee, 0)
+      ),url('../assets/sing2.jpg') no-repeat;
+      background-position: center;
+      background-size: cover;
+      padding-bottom: 4rem;
+    .faq{
+        max-width: 1200px;
+        margin: auto;
+        background-color: #edededaa;
+        padding: 2rem 4rem;
+        border-radius: .5rem;
+        .faq-card{
+            h2{
+                color: $brand-color;
+            }
+        }
+    }
+}

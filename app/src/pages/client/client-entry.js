@@ -18,7 +18,13 @@ class Cliententry extends Component {
                 <input type="text" name="roomid" placeholder="enter your roomid to join karaoke room" value={this.props.roomid} onChange={this.props.roomidChange()}/>
                 <p href="/" className="instruction">Where do I find Room Key?</p>
             </div>
-                <button onClick={this.props.roomidSubmit()}>Submit</button>
+            <div className="buttons">
+            <button onClick={this.props.roomidSubmit()}>Submit</button>
+                {
+                  (localStorage.getItem('roomid') && localStorage.getItem('roomid')!=="") &&
+                  <button onClick={this.props.roomidSubmit(localStorage.getItem('roomid'))}>Go to last room</button>
+                }
+            </div>
         </form>
       </div>
     )

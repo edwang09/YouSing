@@ -28,13 +28,16 @@ Jianan is a part-time web developer, please visit his site on www.yoshio.space f
               <Link to="/">Sitemap</Link>
             </li>
             <li className="navitem">
-              <Link to="/">Term and Use</Link>
+              <Link to="/howtouse">How to use Use</Link>
             </li>
             <li className="navitem">
-              <Link to="/">FAQ</Link>
+              <Link to="/faq">FAQ</Link>
             </li>
             <li className="navitem">
-              <Link to="/">Privacy Policy</Link>
+              <Link to="/client">Client</Link>
+            </li>
+            <li className="navitem">
+              <Link to="/host">Host</Link>
             </li>
             <li className="navitem">
               2018 &copy; YouSing
